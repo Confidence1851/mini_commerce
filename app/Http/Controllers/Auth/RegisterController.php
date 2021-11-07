@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Plan;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\Payment\PaymentService;
 use App\Traits\RegisterTrait;
 use Exception;
 use Illuminate\Auth\Events\Registered;
@@ -87,10 +88,10 @@ class RegisterController extends Controller
                 'status' => "Active",
                 "role" => "User",
                 "ref_code" => User::newRefCode(),
+                "payment_ref" => PaymentService::newRefCode(),
                 "email_verified_at" => now(),
                 'password' => Hash::make($data['password']),
             ]);
-
 
             DB::commit();
             return $newUser;

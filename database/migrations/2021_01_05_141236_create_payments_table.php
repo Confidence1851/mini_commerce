@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('user_id')->index()->constrained("users");
             $table->string('payer_email')->nullable();
             $table->string('currency')->nullable();
+            $table->string('gateway')->nullable();
             $table->string('method');
             $table->string('reference')->unique();
             $table->decimal('amount');

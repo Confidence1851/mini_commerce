@@ -2,25 +2,32 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Helpers\Constants;
-use App\Helpers\Wallet;
 use App\Http\Controllers\Controller;
-use App\Models\Plan;
-use App\Models\Referral;
-use App\Models\Subscription;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\WithdrawalRequest;
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function dashboard()
     {
-
+        return view("dashboards.user.dashboard" , ["user" => auth()->user()]);
     }
 
 
+    public function orders(Request $request)
+    {
+        $user = auth()->user();
+        $orders = Order::where("user_id" , $user->id)->latest()->paginate();
+        return view("dashboards.user.orders" , ["orders" => $orders]);
+    }
+
+    public function payments(Request $request)
+    {
+        $user = auth()->user();
+        $payments = Payment::where("user_id" , $user->id)->latest()->paginate();
+        return view("dashboards.user.payments" , ["payments" => $payments]);
+    }
 
     public function transactions()
     {
@@ -31,7 +38,7 @@ class DashboardController extends Controller
         return view("dashboards.user.transactions", ["transactions" => $transactions]);
     }
 
-    
+
 
 
 }

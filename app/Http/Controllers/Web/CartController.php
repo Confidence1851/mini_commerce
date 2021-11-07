@@ -15,13 +15,13 @@ use Illuminate\Validation\ValidationException;
 class CartController extends Controller
 {
 
-
     public function index()
     {
         $cart = CartService::getCartByUser(auth()->id());
         $cartItems = CartItem::where("cart_id", $cart->id)->whereHas("product")->with("product")->latest()->get();
         return view("web.pages.shop.cart", ["cart" => $cart , "cartItems" => $cartItems]);
     }
+
     public function save(Request $request, $id)
     {
         try {

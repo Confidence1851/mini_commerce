@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Finance;
+namespace App\Services\Payment;
 
 use App\Constants\CurrencyConstants;
 use App\Constants\PaymentConstants;
@@ -37,7 +37,7 @@ class CreateCardPaymentService
                 "transaction_id" => $initialization["transaction"]->id,
                 "amount" => $amount,
                 "fee" => 0,
-                "activity" => PaymentConstants::FUND_WALLET_WITH_CARD,
+                "method" => PaymentConstants::FUND_WALLET_WITH_CARD,
                 "gateway" => CurrencyConstants::FLUTTERWAVE
             ]);
 

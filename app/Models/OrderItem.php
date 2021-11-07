@@ -5,17 +5,15 @@ namespace App\Models;
 use App\Traits\Constants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class OrderItem.
  *
  * @package namespace App\Models;
  */
-class OrderItem extends Model implements Transformable
+class OrderItem extends Model
 {
-    use TransformableTrait, Constants , SoftDeletes;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

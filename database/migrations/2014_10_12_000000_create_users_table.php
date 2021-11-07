@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
+            $table->string('payment_ref')->nullable();
             $table->enum('role', ['User', 'Admin' , 'Vendor'])->default("User");
             $table->string('email')->unique();
             $table->string('ref_code' , 20)->unique();

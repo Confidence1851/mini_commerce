@@ -4,8 +4,8 @@
             <div class="row align-items-center">
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/logo/logo.png" alt="logo">
+                        <a href="{{ route("web.index")}}">
+                            <img src="{{$web_assets}}/images/logo/logo.png" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
                             <a class="setting-active" href="#"><i class="la la-user"></i></a>
                         </div>
                         @else
-                        <div class="same-style ">
-                            <a href="{{ route("login")}}"><i class="la la-user"></i>Login</a>
+                        <div class="same-style">
+                            <a class="header_login_text" href="{{ route("login")}}">Login</a>
                         </div>
                         @endauth
 

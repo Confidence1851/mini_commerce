@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Finance;
+namespace App\Services\Payment;
 
+use App\Constants\PaymentConstants;
 use App\Constants\StatusConstants;
-use App\Constants\TransactionActivityConstants;
-use App\Constants\TransactionConstants;
+use App\Models\Payment;
 use App\Services\Notifications\AppMailerService;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -33,14 +33,16 @@ class CreateManualPaymentService
             $reference = $data["reference"];
 
             $description = "Paid to Bank with Reference Number: #$reference";
-            $transaction = TransactionService::create([
+
+            $payment = Payment::create([
                 "user_id" => $user->id,
+                "payer_email" => $user->email,
+                "currency" => "NGN",
+                "reference" => $reference,
                 "amount" => $amount,
-                "fee" => 0,
-                "description" => $description,
-                "activity" => TransactionActivityConstants::FUND_WITH_BANK,
-                "batch_no" => null,
-                "type" => TransactionConstants::CREDIT,
+                "fees" => 0,
+                "method" => PaymentConstants::PAY_WITH_BANK,
+                "gateway" => null,
                 "status" => StatusConstants::PENDING
             ]);
 
@@ -56,7 +58,7 @@ class CreateManualPaymentService
                 "template" => "emails.payments.new",
                 "subject" => "New Payment Notification",
             ]);
-            return $transaction;
+            return $payment;
         } catch (Exception $e) {
             DB::rollback();
             throw $e;

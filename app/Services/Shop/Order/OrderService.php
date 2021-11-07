@@ -39,7 +39,6 @@ class OrderService
             ->first();
 
         $cartItems = $cart->cartItems;
-
         $cart = CartService::refreshCart($cart->id);
 
         $more = [
@@ -52,6 +51,7 @@ class OrderService
             "comment" => null,
         ];
 
+        unset($data["cart_id"]);
         $order = Order::create(array_merge($data, $more));
 
         OrderItemsService::create($order , $cartItems);

@@ -21,9 +21,8 @@ class DeliveryAddressService
             "country" => "required|string",
             "city" => "required|string",
             "state" => "required|string",
-            "town" => "required|string",
             "phone" => "required|string",
-            "phone_2" => "required|email",
+            "phone_2" => "nullable|email",
         ]);
 
         if($validator->fails()){
@@ -34,7 +33,8 @@ class DeliveryAddressService
         $id = $data["id"] ?? null;
         unset($data["id"]);
         if(!empty($id)){
-            $address = DeliveryAddress::find($id)->update($data);
+            $address = DeliveryAddress::find($id);
+            $address->update($data);
         }
         else{
             $address = DeliveryAddress::create($data);

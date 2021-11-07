@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Services\Finance;
+namespace App\Services\Payment;
 
 use App\Constants\CurrencyConstants;
 use App\Constants\StatusConstants;
 use App\Constants\TransactionActivityConstants;
 use App\Constants\TransactionConstants;
 use App\Exceptions\Payment\PaymentException;
+use App\Models\Payment;
 use App\Models\User;
 use App\Models\Transaction;
-use App\Services\PayementGateways\FlutterwaveService;
+use App\Services\Finance\TransactionService;
+use App\Services\PaymentGateways\FlutterwaveService;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -98,4 +100,22 @@ class PaymentService
             throw $e;
         }
     }
+
+    public static function newRefCode()
+    {
+
+        // Generate a random code
+        $code = strtoupper(getRandomToken(6));
+
+        // Check if the code exists in the user table
+        if (Payment::where("reference", $code)->count() > 0) {
+
+            // If it is in the database , call the function again
+            return self::newRefCode();
+        }
+
+        // Else return the generated code
+        return $code;
+    }
+
 }

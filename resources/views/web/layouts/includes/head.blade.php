@@ -93,6 +93,27 @@
             text-align: center;
         }
 
+        .login_btn {
+            background-color: #e32222;
+            display: block;
+            cursor: pointer;
+            padding: 17px 50px 18 px;
+            margin: 0px 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            width: 60%;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .header_login_text {
+            font-size: 20px !important;
+            margin-left: 10px;
+            color: #e32222;
+        }
+
     </style>
 
 </head>

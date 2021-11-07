@@ -67,7 +67,7 @@
                             <li>- Very modern style </li>
                         </ul>
                     </div>
-                    <div class="pro-details-size-color">
+                    <div class="pro-details-size-color d-none">
                         <div class="pro-details-color-wrap">
                             <span>Color</span>
                             <div class="pro-details-color-content">
@@ -107,7 +107,7 @@
                             </a>
                         </div>
                         @else
-                        <a href="{{ route("login")}}" class="">Login</a>
+                        <a class="btn login_btn p-3" href="{{ route("login")}}" class="">Login</a>
                         @endauth
                         <div class="pro-details-wishlist">
                             @livewire("shop.wishlist-component" , ["product" => $product])

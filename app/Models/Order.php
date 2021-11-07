@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
-use App\Traits\Constants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class Order.
  *
  * @package namespace App\Models;
  */
-class Order extends Model implements Transformable
+class Order extends Model
 {
-    use  Constants , SoftDeletes, HasFactory;
+    use  SoftDeletes, HasFactory;
 
     /**
      * The attributes that are mass assignable.

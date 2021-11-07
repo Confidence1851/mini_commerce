@@ -23,8 +23,7 @@ class CreateDeliveryAddressesTable extends Migration
             $table->string('apartment_no')->nullable();
             $table->text('address');
             $table->string('zip_code')->nullable();
-            $table->text('town');
-            $table->text('city');
+            $table->text('city')->nullable();
             $table->text('state');
             $table->text('country');
             $table->string('phone');

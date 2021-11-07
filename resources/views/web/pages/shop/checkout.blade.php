@@ -18,25 +18,23 @@
 <div class="checkout-main-area pt-100 pb-100">
     <div class="container">
 
+
         <div class="checkout-wrap pt-30">
+        @include("notifications.flash_messages")
+
             <form action="{{ route("web.shop.checkout.process")}}" id="checkout_form" method="POST">@csrf
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="billing-info-wrap mr-50">
                             <h3>Billing Details</h3>
                             <div class="row">
-                                <div class="col-lg-6 col-md-6">
+                                <div class="col-lg-12">
                                     <div class="billing-info mb-20">
-                                        <label>First Name <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="first_name" required value="{{ old("first_name") ?? $user->first_name}}">
+                                        <label>Full Name <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="name" required value="{{ old("name") ?? $user->names()}}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="billing-info mb-20">
-                                        <label>Last Name <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="last_name" required value="{{ old("last_name")  ?? $user->last_name}}">
-                                    </div>
-                                </div>
+
 
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-20">
@@ -58,8 +56,14 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="billing-info mb-20">
+                                        <label>Country <abbr class="required" title="required">*</abbr></label>
+                                        <input type="text" name="country" required value="{{ old("country")}}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="billing-info mb-20">
                                         <label>Postcode / ZIP <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" name="zipcode" value="{{ old("zipcode")}}">
+                                        <input type="text" name="zipcode" value="{{ old("zip_code")}}">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -135,10 +139,11 @@
                                         <input id="payment_method_1" class="input-radio" type="radio" value="Bank" checked="checked" name="payment_method">
                                         <label for="payment_method_1"> Direct Bank Transfer </label>
                                         <div class="payment-box payment_method_bacs">
-                                            <p>Make your payment directly into our bank account. Please use your email as the payment reference.</p>
+                                            <p>Make your payment directly into our bank account. Please use your <b>{{$user->payment_ref}}</b> as the payment reference.</p>
                                             <p>Bank Name: <b>First Bank</b></p>
                                             <p>Account Name: <b>First Bank</b></p>
                                             <p>Account Number: <b>1111111111</b></p>
+                                            <p>Payment Reference: <b class="text-danger">{{$user->payment_ref}}</b></p>
                                         </div>
                                     </div>
 

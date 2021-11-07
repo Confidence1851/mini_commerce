@@ -30,7 +30,7 @@ class CreateOrdersTable extends Migration
             $table->string('file')->nullable();
             $table->string('comment')->nullable();
             $table->string('message')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->string('status');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('payment_id')->references('id')->on('payments')->nullOnDelete();
         	$table->foreign('delivery_address_id')->references('id')->on('delivery_addresses')->nullOnDelete();

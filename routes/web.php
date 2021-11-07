@@ -55,12 +55,13 @@ Route::as("blog.")->namespace("Web")->group(function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::as("user.")->namespace("User")->middleware('verified')->group(function () {
+Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");
-    Route::get('/edit-profile', "ProfileController@edit_profile")->name("edit_profile");
-    Route::put('/update', "ProfileController@update")->name("update");
-
-
+    Route::get('/orders', "DashboardController@orders")->name("orders");
+    Route::get('/payments', "DashboardController@payments")->name("payments");
+    Route::match(["get" , "post"] ,'/address', "AccountController@address")->name("address");
+    Route::match(["get" , "post"] ,'/account', "AccountController@account")->name("account");
+    Route::match(["get" , "post"] ,'/change-password', "AccountController@change_password")->name("change_password");
 });
 
 
