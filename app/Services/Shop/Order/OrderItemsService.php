@@ -35,6 +35,8 @@ class OrderItemsService
                 "total" => $item->total,
                 "extra" => $extra
             ]);
+
+            
         }
 
     }

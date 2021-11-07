@@ -56,6 +56,8 @@ class OrderService
 
         OrderItemsService::create($order , $cartItems);
 
+        $cart->cartItems()->delete();
+
         DB::commit();
         return $order;
     }catch(Exception $e){
