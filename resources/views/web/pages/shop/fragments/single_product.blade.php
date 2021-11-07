@@ -4,13 +4,13 @@
     </div>
     <div class="product-content product-content-padding text-center">
         <h4><a href="{{ $product->detailUrl() }}">{{ $product->name }}</a></h4>
-        <div class="product-rating">
+        {{-- <div class="product-rating">
             <i class="la la-star"></i>
             <i class="la la-star"></i>
             <i class="la la-star"></i>
             <i class="la la-star"></i>
             <i class="la la-star"></i>
-        </div>
+        </div> --}}
         <div class="product-price">
             <span>{{ $product->getPrice() }}</span>
         </div>

@@ -4,13 +4,13 @@
     <div class="container">
         <div class="breadcrumb-content text-center">
             <div class="breadcrumb-title">
-                <h2>shop page</h2>
+                <h2>Shop page</h2>
             </div>
             <ul>
                 <li>
                     <a href="index.html">Home</a>
                 </li>
-                <li class="active">shop list 2 column </li>
+                <li class="active">Shop </li>
             </ul>
         </div>
     </div>
@@ -60,31 +60,27 @@
                                             <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6">
                                                 <div class="product-wrap product-border-1">
                                                     <div class="product-img">
-                                                        <a href="#">
-                                                            <img src="assets/images/product/hm1-pro-1.jpg" alt="product">
-                                                        </a>
+                                                        <a href="{{ $product->detailUrl() }}"><img src="{{ $product->getDefaultImage() }}" alt="product"></a>
+
                                                         <span class="product-badge">-30%</span>
-                                                        <div class="product-action">
-                                                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" title="Quick View" href="#"><i class="la la-plus"></i></a>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6">
                                                 <div class="shop-list-content">
-                                                    <h3><a href="#">Products Name Here</a></h3>
-                                                    <div class="product-list-rating">
+                                                    <h4><a href="{{ $product->detailUrl() }}">{{ $product->name }}</a></h4>
+                                                    {{-- <div class="product-list-rating">
                                                         <i class="la la-star"></i>
                                                         <i class="la la-star"></i>
                                                         <i class="la la-star"></i>
                                                         <i class="la la-star"></i>
                                                         <i class="la la-star"></i>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="product-list-price">
-                                                        <span>$ 60.00</span>
-                                                        <span class="old">$ 90.00</span>
+                                                        <span>{{ $product->getPrice() }}</span>
+                                                        <span class="old">{{ $product->price }}</span>
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
+                                                    <p>{{ $product->description}}</p>
                                                     <div class="shop-list-btn-wrap">
                                                         <div class="shop-list-cart default-btn btn-hover">
                                                             <a href="#">ADD TO CART</a>
