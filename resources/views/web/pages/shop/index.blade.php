@@ -61,7 +61,6 @@
                                                 <div class="product-wrap product-border-1">
                                                     <div class="product-img">
                                                         <a href="{{ $product->detailUrl() }}"><img src="{{ $product->getDefaultImage() }}" alt="product"></a>
-
                                                         <span class="product-badge">-30%</span>
                                                     </div>
                                                 </div>

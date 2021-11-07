@@ -19,10 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
         // \App\Models\User::factory(1000)->create();
-        // CouponCode::factory(200)->create();
-        // $this->call(PlansTableSeeder::class);
         // $this->call(PostCategoryTableseeder::class);
         // Post::factory(20)->create();
-        // $this->call(PermissionTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
     }
 }

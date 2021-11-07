@@ -21,13 +21,13 @@
                         </div>
                         @auth
                         <div class="same-style cart-wrap">
-                            <a href="{{ route("web.shop.cart.index")}}" class="cart-active">
+                            <a href="{{ route("web.shop.cart.index")}}" class="cart-active ml-15">
                                 <i class="la la-shopping-cart"></i>
                                 <span class="count-style cart_items_count">{{optional(cart())->items}}</span>
                             </a>
                         </div>
                         <div class="same-style setting-wrap ml-15">
-                            <a class="setting-active" href="#"><i class="la la-user"></i></a>
+                            <a  href="{{ route("user.dashboard")}}"><i class="la la-user"></i></a>
                         </div>
                         @else
                         <div class="same-style">

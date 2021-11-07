@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="{{ route("web.index") }}" class="nav-link"> Flairworlds</a>
+                <a href="{{ route("web.index") }}" class="nav-link"> Admin </a>
             </li>
         </ul>
 
@@ -26,7 +26,7 @@
 
         <ul class="navbar-item flex-row ml-md-auto">
 
-            <li class="nav-item dropdown language-dropdown">
+            {{-- <li class="nav-item dropdown language-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ $admin_assets }}/assets/img/ca.png" class="flag-width" alt="flag">
                 </a>
@@ -99,7 +99,7 @@
                         </a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             {{-- <li class="nav-item dropdown notification-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

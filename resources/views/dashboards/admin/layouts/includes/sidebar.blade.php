@@ -13,8 +13,7 @@
                 </a>
             </li>
 
-            <br>
-            <b>Blog</b>
+            {{-- <b>Blog</b>
             <br>
             @can("can_read_posts")
             <li class="menu">
@@ -33,10 +32,7 @@
                     </div>
                 </a>
             </li>
-            @endcan
-
-            <hr>
-
+            @endcan --}}
 
             @can("can_read_users")
             <li class="menu">
@@ -48,70 +44,35 @@
             </li>
             @endcan
 
-            @can("can_read_subscriptions")
+            @can("can_read_products")
             <li class="menu">
-                <a href="{{ route("admin.subscriptions.index") }}" aria-expanded="false" class="dropdown-toggle">
+                <a href="{{ route("admin.products.index") }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <span>Subscriptions</span>
+                        <span>Users</span>
                     </div>
                 </a>
             </li>
             @endcan
-            @can("can_read_plans")
+
+            @can("can_read_payments")
             <li class="menu">
-                <a href="{{ route("admin.plans.index") }}" aria-expanded="false" class="dropdown-toggle">
+                <a href="{{ route("admin.payments.index") }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <span>Plans</span>
+                        <span>Payments</span>
                     </div>
                 </a>
             </li>
             @endcan
-            @can("can_read_transactions")
+            @can("can_read_orders")
             <li class="menu">
-                <a href="{{ route("admin.transactions.index") }}" aria-expanded="false" class="dropdown-toggle">
+                <a href="{{ route("admin.orders.index") }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <span>Transactions</span>
+                        <span>Orders</span>
                     </div>
                 </a>
             </li>
             @endcan
-            @can("can_read_withdrawal_requests")
-            <li class="menu">
-                <a href="{{ route("admin.withdrawals.index") }}" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <span>Withdrawal Requests</span>
-                    </div>
-                </a>
-            </li>
-            @endcan
-            @can("can_read_coupons")
-            <li class="menu">
-                <a href="{{route('admin.coupons.index')}}" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <span>Coupons</span>
-                    </div>
-                </a>
-            </li>
-            @endcan
-            @can("can_read_referrals")
-            <li class="menu">
-                <a href="{{ route("admin.referrals.index") }}" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <span>Referrals</span>
-                    </div>
-                </a>
-            </li>
-            @endcan
-            @can("can_read_vendors")
-            <li class="menu">
-                <a href="{{ route('admin.vendors')}}" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <span>Vendors</span>
-                    </div>
-                </a>
-            </li>
-            <br>
-            @endcan
+
             @can("can_read_user_activities")
             <li class="menu">
                 <a href="{{ url("/admin/user-activity")}}" aria-expanded="false" class="dropdown-toggle">

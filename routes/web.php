@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ReferralsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,18 +65,16 @@ Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
 
 
 
-Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware(["verified", "admin"])->group(function () {
+Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware(["auth", "admin"])->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");
     Route::resource('users', UserController::class);
     Route::get('users/imitate/{id}', "UserController@imitate")->name("users.imitate");
     Route::post('users/{id}/modify-acount', "UserController@modifyAccount")->name("users.modify.account");
 
-    Route::resource('transactions', TransactionController::class);
     Route::get('transaction/status/{id}/{status}', "TransactionController@status")->name("transaction_status");
-    Route::get('referrals', [ReferralsController::class, 'index'])->name("referrals.index");
-
 
     Route::resource('coupons', CouponController::class);
+
 
     Route::prefix("authorization")->as("authorization.")->namespace("Authorization")->middleware("sudo")->group(function () {
         Route::resource('roles', RoleController::class);
@@ -89,4 +86,11 @@ Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware(["verified"
         Route::resource('category', CategoryController::class);
         Route::resource('posts', PostController::class);
     });
+
+
+    Route::resource('orders', Shop\OrderController::class);
+    Route::resource('products', Shop\ProductController::class);
+    Route::resource('payments', Shop\PaymentController::class);
+
+    
 });

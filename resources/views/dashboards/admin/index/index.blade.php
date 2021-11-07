@@ -3,7 +3,7 @@
 
     <div class="row ">
 
-        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class=" col-md-12 col-sm-12 col-12">
             <div class="row widget-statistic">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
                     <div class="widget widget-one_hybrid widget-followers">
@@ -25,11 +25,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <div class="w-chart">
-                                <div id="hybrid_followers"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
@@ -46,17 +42,13 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <a class="" href="{{ route('admin.referrals.index') }} ">
-                                    <p class="w-value">{{ $analytics['referrals']['count'] ?? 'N/A' }}</p>
-                                    <h5 class="">Referrals</h5>
+                                <a class="" href="{{ route('admin.products.index') }} ">
+                                    <p class="w-value">{{ $analytics['products']['count'] ?? 'N/A' }}</p>
+                                    <h5 class="">Products</h5>
                                 </a>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <div class="w-chart">
-                                <div id="hybrid_followers1"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
@@ -72,32 +64,24 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <a class="" href="{{ route('admin.blog.posts.index') }} ">
-                                    <p class="w-value">{{ $analytics['posts']['count'] ?? 'N/A' }}</p>
-                                    <h5 class="">Posts</h5>
+                                <a class="" href="{{ route('admin.orders.index') }} ">
+                                    <p class="w-value">{{ $analytics['orders']['count'] ?? 'N/A' }}</p>
+                                    <h5 class="">Orders</h5>
                                 </a>
                             </div>
                         </div>
-                        <div class="widget-content">
-                            <div class="w-chart">
-                                <div id="hybrid_followers3"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            @include("dashboards.admin.index.fragments.plan_users" , ["subscribedPlans" => $subscribedPlans])
-        </div>
-
 
         <div class="col-md-6">
             <div class="widget-four">
                 <div class="widget-heading">
-                    <h5 class="">New Signups
+                    <h5 class="">Lastest Users
                         <a href="{{ route("admin.users.index") }}" class="text-danger" >
                             <small style="float: right" >See all</small>
                         </a>
@@ -111,7 +95,6 @@
                                 <tr>
                                     <th class="">S/N</th>
                                     <th class="">Name</th>
-                                    <th class="">Plan</th>
                                     <th class="">Date</th>
                                 </tr>
                             </thead>
@@ -119,7 +102,7 @@
                                 @php
                                     $sn = 1;
                                 @endphp
-                                @foreach ($newSignups as $user)
+                                @foreach ($latest_users as $user)
                                    <tr>
                                     <td>{{ $sn++ }}</td>
                                     <td>
@@ -127,7 +110,6 @@
                                             {{ $user->names() }}
                                         </a>
                                     </td>
-                                    <td>{{ $user->activePlan()->plan_name }}</td>
                                     <td>{{ $user->created_at }}</td>
                                    </tr>
                                 @endforeach
@@ -141,21 +123,22 @@
         <div class="col-md-6">
             <div class="widget-four">
                 <div class="widget-heading">
-                    <h5 class="">Share Activties
-                        {{-- <a href="{{ route() }} > --}}
-                            <small style="float: right" class="text-danger">See all</small>
-                        {{-- </a> --}}
+                    <h5 class="">Latest Orders
+                        <a href="{{ route("admin.orders.index") }}" class="text-danger" >
+                            <small style="float: right" >See all</small>
+                        </a>
                     </h5>
                 </div>
                 <div class="widget-content">
-                    {{-- <div class="table-responsive">
+                    <div class="table-responsive">
                         <table
                             class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
                             <thead>
                                 <tr>
                                     <th class="">S/N</th>
-                                    <th class="">Name</th>
-                                    <th class="">Plan</th>
+                                    <th class="">Reference</th>
+                                    <th class="">Total</th>
+                                    <th class="">Status</th>
                                     <th class="">Date</th>
                                 </tr>
                             </thead>
@@ -163,21 +146,18 @@
                                 @php
                                     $sn = 1;
                                 @endphp
-                                @foreach ($newSignups as $user)
+                                @foreach ($latest_orders as $order)
                                    <tr>
                                     <td>{{ $sn++ }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.users.show', $user->id) }}" class="text-primary">
-                                            {{ $user->names() }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $user->activePlan()->plan_name }}</td>
-                                    <td>{{ $user->created_at }}</td>
+                                    <td>{{ $order->reference }}</td>
+                                    <td>{{ format_money($order->amount) }}</td>
+                                    <td>{{ $order->status }}</td>
+                                    <td>{{ $order->created_at }}</td>
                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>

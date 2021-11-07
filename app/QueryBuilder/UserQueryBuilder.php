@@ -12,7 +12,7 @@ class UserQueryBuilder
 
     static function filterIndex(Request $request)
     {
-        $builder = User::whereNotIn("email", [Constants::DEV_EMAIL])->with("plan");
+        $builder = User::whereNotIn("email", [Constants::DEV_EMAIL]);
 
         if (!empty($key = $request->search)) {
             $builder = $builder->whereRaw("concat(first_name, ' ', last_name , ' ' , email) like '%$key%' ");

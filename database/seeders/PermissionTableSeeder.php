@@ -69,77 +69,48 @@ class PermissionTableSeeder extends Seeder
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_create_subscriptions",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_edit_subscriptions",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_read_subscriptions",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_create_plans",
+                "name" => "can_create_payments",
                 "guard_name" => "web",
             ],
 
             [
-                "name" => "can_edit_plans",
+                "name" => "can_edit_payments",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_read_plans",
+                "name" => "can_read_payments",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_delete_plans",
+                "name" => "can_delete_payments",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_create_transactions",
-                "guard_name" => "web",
-            ],
-
-            [
-                "name" => "can_edit_transactions",
+                "name" => "can_create_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_read_transactions",
+                "name" => "can_edit_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_delete_transactions",
+                "name" => "can_read_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_create_withdrawal_requests",
+                "name" => "can_delete_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_edit_withdrawal_requests",
+                "name" => "can_complete_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_read_withdrawal_requests",
+                "name" => "can_decline_products",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_delete_withdrawal_requests",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_complete_withdrawal_requests",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_decline_withdrawal_requests",
-                "guard_name" => "web",
-            ],
-            [
-                "name" => "can_terminate_withdrawal_requests",
+                "name" => "can_terminate_products",
                 "guard_name" => "web",
             ],
             [
@@ -159,23 +130,31 @@ class PermissionTableSeeder extends Seeder
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_read_referrals",
+                "name" => "can_create_orders",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_create_vendors",
+                "name" => "can_edit_orders",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_edit_vendors",
+                "name" => "can_read_orders",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_read_vendors",
+                "name" => "can_delete_orders",
                 "guard_name" => "web",
             ],
             [
-                "name" => "can_delete_vendors",
+                "name" => "can_complete_orders",
+                "guard_name" => "web",
+            ],
+            [
+                "name" => "can_decline_orders",
+                "guard_name" => "web",
+            ],
+            [
+                "name" => "can_terminate_orders",
                 "guard_name" => "web",
             ],
             [
@@ -185,9 +164,9 @@ class PermissionTableSeeder extends Seeder
 
         ];
 
-        // foreach ($data as $perm) {
-        //     Permission::firstOrCreate($perm);
-        // }
+        foreach ($data as $perm) {
+            Permission::firstOrCreate($perm);
+        }
 
         AuthorizationService::syncAdminRoles();
 

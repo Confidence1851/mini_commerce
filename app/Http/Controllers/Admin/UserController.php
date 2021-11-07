@@ -38,14 +38,12 @@ class UserController extends Controller
             ->orderby("id", "desc")
             ->paginate(20)->appends($request->query());
         $sn = $users->firstItem();
-        $plans = Plan::active()->get();
         $roles = [
             "Admin", "User"
         ];
         return view("dashboards.admin.users.index", [
             "users" => $users,
             "sn" => $sn,
-            "plans" => $plans,
             "roles" => $roles
         ]);
     }

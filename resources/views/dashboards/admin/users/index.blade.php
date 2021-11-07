@@ -22,14 +22,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-auto">
-                    <select class="form-control" name="plan">
-                        <option value=""> Select Plan</option>
-                        @foreach ($plans as $plan)
-                        <option value="{{$plan->name}}" {{ request()->query("plan") == $plan->name ? "selected" : "" }}>{{$plan->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
+
                 <div class="form-group col-auto">
                     <button class="btn btn-primary btn-sm" type="submit">Filter</button>
                 </div>
@@ -40,16 +33,10 @@
                     <thead>
                         <tr>
                             <th class="">S/N</th>
-                            <th class="checkbox-column">
-                                <label class="new-control new-checkbox checkbox-primary" style="height: 18px; margin: 0 auto;">
-                                    <input type="checkbox" class="new-control-input todochkbox" id="todoAll">
-                                    <span class="new-control-indicator"></span>
-                                </label>
-                            </th>
                             <th class="">Name</th>
                             <th class="">Email</th>
+                            <th class="">Phone</th>
                             <th class="">Role</th>
-                            <th class="">Active Plan</th>
                             <th class="">Joined On</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -58,16 +45,10 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{ $sn++ }}</td>
-                            <td class="checkbox-column">
-                                <label class="new-control new-checkbox checkbox-primary" style="height: 18px; margin: 0 auto;">
-                                    <input type="checkbox" class="new-control-input todochkbox" id="todo-1">
-                                    <span class="new-control-indicator"></span>
-                                </label>
-                            </td>
                             <td>{{ $user->names() }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone ?? "N/A" }}</td>
                             <td>{{ $user->role }}</td>
-                            <td>{{ $user->activePlan()->plan_name }}</td>
                             <td>{{ $user->created_at }}</td>
 
                             <td class="text-center">
