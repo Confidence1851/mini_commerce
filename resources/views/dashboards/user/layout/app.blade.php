@@ -38,7 +38,8 @@
                                 <a href="{{ route("user.address")}}" class="{{ Route::current()->getName() == "user.address" ? "active" : ""}}"><i class="fa fa-map-marker"></i>Delivery Address</a>
                                 <a href="{{ route("user.account")}}" class="{{ Route::current()->getName() == "user.account" ? "active" : ""}}"><i class="fa fa-user"></i> Account Details</a>
                                 <a href="{{ route("user.change_password")}}" class="{{ Route::current()->getName() == "user.change_password" ? "active" : ""}}"><i class="fa fa-user"></i> Change password</a>
-                                <a href="login-register.html"><i class="fa fa-sign-out"></i> Logout</a>
+                                <a href="#" onclick="return $('#logoutForm').trigger('submit');"><i class="fa fa-sign-out"></i> Logout</a>
+                                <form action="{{route("logout")}}" id="logoutForm" method="post">@csrf</form>
                             </div>
                         </div>
                         <!-- My Account Tab Menu End -->
