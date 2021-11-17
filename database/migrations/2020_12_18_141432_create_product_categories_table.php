@@ -20,6 +20,7 @@ class CreateProductCategoriesTable extends Migration
             $table->id();
             $table->foreignId("category_id")->nullable();
             $table->string('name');
+            $table->string('image');
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

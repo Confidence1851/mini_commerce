@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package namespace App\Models;
  */
-class ProductCategory extends Model 
+class ProductCategory extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,12 @@ class ProductCategory extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id','name','start_price','stop_price'];
+    protected $guarded = ["id"];
 
+    public function imageUrl()
+    {
+        if (!empty($path = $this->image)) {
+            return readFileUrl("encrypt", $path);
+        }
+    }
 }

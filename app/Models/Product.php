@@ -10,6 +10,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = ["id"];
+
     public function vendor()
     {
         return $this->belongsTo(User::class, "vendor_id");
@@ -25,21 +27,22 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id');
     }
 
-    public function activeImages()
+
+    public function defaultImage()
     {
-        return $this->hasMany(ProductImage::class, 'product_id')->where("status", Constants::ACTIVE);
+        return $this->hasOne(ProductImage::class, 'product_id')->latest()->where("is_default", Constants::ACTIVE);
     }
 
     public function getDefaultImage()
     {
-        $image = $this->activeImages()->where("isDefault", Constants::ACTIVE)->first();
+        $image = $this->defaultImage;
         if (empty($image)) {
-            $image = $this->activeImages()->first();
+            $image = $this->images()->first();
         }
         if (empty($image)) {
             return "";
         }
-        return $image->getImage(false);
+        return $image->url();
     }
 
     public function getPrice()
@@ -55,6 +58,14 @@ class Product extends Model
     public function detailUrl()
     {
         return route("web.shop.details" , ["id" => $this->id, "slug" => slugify($this->name)]);
+    }
+
+    public function discountPercent()
+    {
+        if($this->discount == 0){
+            return 0;
+        }
+        return number_format($this->discount * 100 / $this->price);
     }
 }
 

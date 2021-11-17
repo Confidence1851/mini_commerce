@@ -25,24 +25,26 @@ Route::as("web.")->namespace("Web")->group(function () {
     Route::get('/', "IndexController@index")->name("index");
     Route::get('about', "IndexController@about")->name("about");
     Route::get('contact-us', "IndexController@contact_us")->name("contact_us");
+    Route::post('contact-us/send-message', "ContactUsController@send")->name("contact_us.send_message");
+
     Route::get('file/{path}', 'IndexController@read_file')->name("read_file");
     Route::get('approved-vendors', "IndexController@approved_vendors")->name("approved_vendors");
 
     Route::prefix("shop")->as("shop.")->group(function () {
-    Route::get('index', "ShopController@index")->name("index");
-    Route::get('details/{id}/{slug?}', "ShopController@details")->name("details");
+        Route::get('index', "ShopController@index")->name("index");
+        Route::get('details/{id}/{slug?}', "ShopController@details")->name("details");
 
-    Route::prefix("cart")->as("cart.")->middleware('auth')->group(function () {
-        Route::post('save/{id}', "CartController@save")->name("save");
-        Route::post('update/{id}', "CartController@update")->name("update");
-        Route::get('index', "CartController@index")->name("index");
-    });
+        Route::prefix("cart")->as("cart.")->middleware('auth')->group(function () {
+            Route::post('save/{id}', "CartController@save")->name("save");
+            Route::post('update/{id}', "CartController@update")->name("update");
+            Route::get('index', "CartController@index")->name("index");
+        });
 
-    Route::prefix("checkout")->as("checkout.")->middleware('auth')->group(function () {
-        Route::get('index', "CheckoutController@index")->name("index");
-        Route::post('process', "CheckoutController@process")->name("process");
+        Route::prefix("checkout")->as("checkout.")->middleware('auth')->group(function () {
+            Route::get('index', "CheckoutController@index")->name("index");
+            Route::post('process', "CheckoutController@process")->name("process");
+        });
     });
-});
 });
 
 Route::as("blog.")->namespace("Web")->group(function () {
@@ -58,9 +60,9 @@ Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");
     Route::get('/orders', "DashboardController@orders")->name("orders");
     Route::get('/payments', "DashboardController@payments")->name("payments");
-    Route::match(["get" , "post"] ,'/address', "AccountController@address")->name("address");
-    Route::match(["get" , "post"] ,'/account', "AccountController@account")->name("account");
-    Route::match(["get" , "post"] ,'/change-password', "AccountController@change_password")->name("change_password");
+    Route::match(["get", "post"], '/address', "AccountController@address")->name("address");
+    Route::match(["get", "post"], '/account', "AccountController@account")->name("account");
+    Route::match(["get", "post"], '/change-password', "AccountController@change_password")->name("change_password");
 });
 
 
@@ -88,9 +90,13 @@ Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware(["auth", "a
     });
 
 
-    Route::resource('orders', Shop\OrderController::class);
-    Route::resource('products', Shop\ProductController::class);
-    Route::resource('payments', Shop\PaymentController::class);
+    Route::resource('orders', Shop\OrderController::class)->only(["index", "show"]);
+    Route::post('orders/update-status', "Shop\OrderController@updateStatus")->name("roles.update_status");
 
-    
+    Route::resource('products', Shop\ProductController::class);
+    Route::get('products/{id}/orders', "Shop\ProductController@orders")->name("products.orders");
+
+    Route::resource('product-images', Shop\ProductImageController::class);
+    Route::resource('product-categories', Shop\ProductCategoryController::class);
+    Route::resource('payments', Shop\PaymentController::class);
 });

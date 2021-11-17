@@ -14,20 +14,18 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     use HasFactory;
+    protected $guarded = ["id"];
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $guarded = [];
-    public $productImagePath = "";
-    public function getImage($getPath = true)
-    { //if true , return only path else return image url
-        $relativePath = "$this->productImagePath/$this->image";
-        if ($getPath) {
-            return $relativePath;
+
+    public function url()
+    {
+        if (!empty($path = $this->image)) {
+            return readFileUrl("encrypt", $path);
         }
-        return readFileUrl("encrypt", $relativePath);
     }
 }

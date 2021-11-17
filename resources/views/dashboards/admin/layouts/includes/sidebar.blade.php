@@ -44,15 +44,23 @@
             </li>
             @endcan
 
-            @can("can_read_products")
+            {{-- @can("can_read_products") --}}
             <li class="menu">
-                <a href="{{ route("admin.products.index") }}" aria-expanded="false" class="dropdown-toggle">
+                <a href="{{ route("admin.product-categories.index") }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
-                        <span>Users</span>
+                        <span>Product Categories</span>
                     </div>
                 </a>
             </li>
-            @endcan
+            <li class="menu">
+                <a href="{{ route("admin.products.index") }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <span>Products</span>
+                    </div>
+                </a>
+            </li>
+
+            {{-- @endcan --}}
 
             @can("can_read_payments")
             <li class="menu">

@@ -53,7 +53,7 @@
 
                             <td class="text-center">
                                 <ul class="table-controls">
-                                    <li><a href="{{ route('admin.users.show', $user->id) }}" class="mr-2" data-toggle="tooltip" data-placement="top" title="Settings"><i data-feather="settings"></i></a> </li>
+                                    <li><a href="{{ route('admin.users.show', $user->id) }}" class="mr-2" data-toggle="tooltip" data-placement="top"><i data-feather="eye"></i></a> </li>
                                     <li><a href="{{ route('admin.users.edit', $user->id) }}" data-toggle="tooltip" data-placement="top" title="Edit"><i>
                                                 <i data-feather="edit-2" class="text-info"></i></a></li>
                                     <li class="mt-2">

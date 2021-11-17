@@ -12,6 +12,7 @@ class StatusConstants
     const SUSPENDED = "Suspended";
     const PENDING = "Pending";
     const COMPLETED = "Completed";
+    const CONFIRMED = "Confirmed";
     const PROCESSING = "Processing";
     const CANCELLED = "Cancelled";
     const DECLINED = "Declined";

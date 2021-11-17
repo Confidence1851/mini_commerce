@@ -20,8 +20,7 @@ class CreateProductImagesTable extends Migration
             $table->id();
 			$table->foreignId('product_id')->constrained('products');
 			$table->string('image');
-            $table->tinyInteger('isDefault')->default(0);
-            $table->string('status');
+            $table->tinyInteger('is_default')->default(0);
             $table->timestamps();
 		});
 	}

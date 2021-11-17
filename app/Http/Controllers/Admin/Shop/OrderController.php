@@ -2,84 +2,54 @@
 
 namespace App\Http\Controllers\Admin\Shop;
 
+use App\Constants\OrderActivityConstants;
+use App\Exceptions\Shop\OrderException;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Services\Shop\Order\OrderActivityService;
+use App\Services\Shop\Order\OrderStatusService;
+use Exception;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $orders = Order::with(["user", "payment"])->latest()->paginate();
+        return view("dashboards.admin.orders.index", [
+            "orders" => $orders
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $order = Order::with(["user", "payment", "items", "deliveryAddress"])->findOrFail($id);
+        return view("dashboards.admin.orders.show", [
+            "order" => $order,
+            "histories" => OrderActivityService::parseHistory($order->history),
+            "statusOptions" => OrderActivityConstants::STATUS_OPTIONS
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function updateStatus(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                "order_id" => "required|exists:orders,id",
+                "status" => "string|required",
+                "message" => "string|nullable",
+            ]);
+
+            OrderStatusService::setStatus($request->order_id, $request->status, $request->message);
+            return back()->with("success_message", "Changes saved successfully!");
+        } catch (OrderException $e) {
+            return back()->with("error_message", $e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error_message", "An error occured while processing your request");
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

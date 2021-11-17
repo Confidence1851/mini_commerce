@@ -13,4 +13,17 @@ class TransactionActivityConstants
     const WITHDRAW_FROM_WALLET = "WITHDRAW_FROM_WALLET";
     const WALLET_TRANSFER = "WALLET_TRANSFER";
     const SHARE_ACTIVITY_BONUS = "SHARE_ACTIVITY_BONUS";
+    const MODIFY_WALLET = "MODIFY_WALLET";
+    const ELITE_SHARING_COMMISSION = "ELITE_SHARING_COMMISSION";
+
+    const OPTIONS = [
+        self::FUND_WITH_FLUTTERWAVE => "Fund with Flutterwave",
+        self::FUND_WITH_BANK => "Fund with Bank",
+        self::REFERRAL_BONUS => "Referral Bonus",
+        self::SIGNUP_BONUS => "Signup Bonus",
+        self::WITHDRAW_FROM_WALLET => "Withdraw from wallet",
+        self::SHARE_ACTIVITY_BONUS => "Share Activity Bonus",
+        self::MODIFY_WALLET => "Modify Wallet",
+        self::ELITE_SHARING_COMMISSION => "Elite Sharing Commission"
+    ];
 }

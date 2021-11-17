@@ -7,7 +7,7 @@ Kindly find below the details of the new contact us form.
 
 **Email**: {{ $email ?? "N/A" }}
 
-**Phone**: {{ $phone ?? "N/A" }}
+**Subject**: {{ $subject ?? "N/A" }}
 
 **Message**: {{ $message ?? "N/A" }}
 

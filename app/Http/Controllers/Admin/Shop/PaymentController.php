@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -14,7 +15,10 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::with("user")->latest()->paginate();
+        return view("dashboards.admin.payments.index" , [
+            "payments" => $payments
+        ]);
     }
 
     /**

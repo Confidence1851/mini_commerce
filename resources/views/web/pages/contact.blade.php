@@ -52,14 +52,16 @@
             </div>
             <div class="col-lg-7 col-md-6">
                 <div class="contact-from contact-shadow">
-                    <form id="contact-form" action="http://whizthemes.com/mail-php/contact/mail.php" method="post">
-                        <input name="name" type="text" placeholder="Name">
-                        <input name="email" type="email" placeholder="Email">
-                        <input name="subject" type="text" placeholder="Subject">
-                        <textarea name="message" placeholder="Your Message"></textarea>
+                    <form id="contact-form" action="{{ route("web.contact_us.send_message")}}" method="post">
+                        @csrf
+                        <input name="name" type="text" placeholder="Name" required>
+                        <input name="email" type="email" placeholder="Email" required>
+                        <input name="subject" type="text" placeholder="Subject" required>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
                         <button class="submit" type="submit">Send Message</button>
                     </form>
-                    <p class="form-messege"></p>
+
+                    <div class="alert d-none text-center mt-3" id="form_reponse_container"></div>
                 </div>
             </div>
         </div>

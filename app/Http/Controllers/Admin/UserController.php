@@ -10,6 +10,7 @@ use App\Models\Plan;
 use App\Models\User;
 use App\QueryBuilder\UserQueryBuilder;
 use App\Services\Auth\AuthorizationService;
+use App\Services\Finance\WalletService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,10 +81,8 @@ class UserController extends Controller
         AuthorizationService::hasPermissionTo("can_read_users");
         $user = User::with("wallet")
             ->whereNotIn("email", [Constants::DEV_EMAIL])
-            ->with("referralRecord")
-            ->with("plan")
             ->findOrFail($id);
-        $wallet = Wallet::get($user);
+        $wallet = WalletService::get($user->id);
         $walletOptions = Constants::WALLET_OPTIONS;
         return view("dashboards.admin.users.show", [
             "user" => $user,

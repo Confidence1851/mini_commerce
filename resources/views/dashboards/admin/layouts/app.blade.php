@@ -167,6 +167,11 @@
             float: right;
         }
 
+        .default_image{
+            padding: 2px;
+            background: rgb(131, 231, 131);
+        }
+
     </style>
 
 </head>

@@ -8,7 +8,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url("/")}}">Home</a>
                 </li>
                 <li class="active">cart </li>
             </ul>
@@ -37,7 +37,7 @@
                                 @foreach ($cartItems as $item)
                                 <tr id="cart_item_row_{{$item->id}}">
                                     <td class="product-thumbnail">
-                                        <a href="#"><img src="{{$web_assets}}/images/cart/cart-3.jpg" alt=""></a>
+                                        <a href="#"><img src="{{ $item->product->getDefaultImage() }}" class="img-fluid" alt=""></a>
                                     </td>
                                     <td class="product-name"><a href="{{ $item->product->detailurl() }}">{{ $item->product->name }}</a></td>
                                     <td class="product-price-cart"><span class="amount" id="cart_item_unit_price_{{$item->product->id}}">{{ $item->getPrice() }}</span></td>

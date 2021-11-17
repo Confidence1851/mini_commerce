@@ -21,23 +21,15 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-img">
                     <div class="zoompro-border zoompro-span">
-                        <img class="zoompro" src="{{$web_assets}}/images/product-details/product-detalis-l1.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl1.jpg" alt="" /> <span>-29%</span>
+                        <img class="zoompro" src="{{ $product->getDefaultImage() }}" data-zoom-image="{{ $product->getDefaultImage() }}" alt="" /> <span>-{{ $product->discountPercent() }}%</span>
                     </div>
                     <div id="gallery" class="mt-20 product-dec-slider">
-                        <a data-image="{{$web_assets}}/images/product-details/product-detalis-l1.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl1.jpg">
-                            <img src="{{$web_assets}}/images/product-details/product-detalis-s1.jpg" alt="">
+                        @foreach ($product->images as $image)
+                        <a data-image="{{ $image->url() }}" data-zoom-image="{{ $image->url() }}">
+                            <img src="{{ $image->url() }}" alt="" class="img-fluid">
                         </a>
-                        <a data-image="{{$web_assets}}/images/product-details/product-detalis-l2.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl2.jpg">
-                            <img src="{{$web_assets}}/images/product-details/product-detalis-s2.jpg" alt="">
-                        </a>
-                        <a data-image="{{$web_assets}}/images/product-details/product-detalis-l3.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl3.jpg">
-                            <img src="{{$web_assets}}/images/product-details/product-detalis-s3.jpg" alt="">
-                        </a>
-                        <a data-image="{{$web_assets}}/images/product-details/product-detalis-l4.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl4.jpg">
-                            <img src="{{$web_assets}}/images/product-details/product-detalis-s4.jpg" alt="">
-                        </a>
-                        <a data-image="{{$web_assets}}/images/product-details/product-detalis-l5.jpg" data-zoom-image="{{$web_assets}}/images/product-details/product-detalis-bl5.jpg">
-                            <img src="{{$web_assets}}/images/product-details/product-detalis-s5.jpg" alt="">
+                        @endforeach
+
                         </a>
                     </div>
                 </div>
@@ -49,7 +41,7 @@
                         <span>{{$product->getPrice()}} </span>
                         <span class="old">{{$product->getRealPrice()}}</span>
                     </div>
-                    <div class="pro-details-rating-wrap">
+                    {{-- <div class="pro-details-rating-wrap">
                         <div class="pro-details-rating">
                             <i class="la la-star"></i>
                             <i class="la la-star"></i>
@@ -58,15 +50,15 @@
                             <i class="la la-star"></i>
                         </div>
                         <span><a href="#">3 Reviews</a></span>
-                    </div>
+                    </div> --}}
                     <p>{{$product->description}}</p>
-                    <div class="pro-details-list">
+                    {{-- <div class="pro-details-list">
                         <ul>
                             <li>- 0.5 mm Dail</li>
                             <li>- Inspired vector icons</li>
                             <li>- Very modern style </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="pro-details-size-color d-none">
                         <div class="pro-details-color-wrap">
                             <span>Color</span>
@@ -95,7 +87,7 @@
                     </div>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input value="{{$quantity}}" class="cart-plus-minus-box cart_update_data" id="cart_product_qty_{{$product->id}}" type="text" name="qtybutton" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.update" , $product->id )}}" >
+                            <input value="{{$quantity}}" class="cart-plus-minus-box cart_update_data" id="cart_product_qty_{{$product->id}}" type="text" name="qtybutton" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.update" , $product->id )}}">
                         </div>
                         @auth
                         <div class="pro-details-cart btn-hover">
@@ -154,10 +146,10 @@
                         <div id="des-details3" class="tab-pane">
                             <div class="product-anotherinfo-wrapper">
                                 <ul>
-                                    <li><span>Weight</span> 400 g</li>
-                                    <li><span>Dimensions</span>10 x 10 x 15 cm </li>
-                                    <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                                    <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
+                                    <li><span>Weight</span> {{$product->weight ?? "N/A"}}</li>
+                                    <li><span>Dimensions</span>{{$product->dimensions ?? "N/A"}}</li>
+                                    <li><span>Materials</span> {{$product->materials ?? "N/A"}}</li>
+                                    <li><span>Other Info</span>{{$product->other_info ?? "N/A"}}</li>
                                 </ul>
                             </div>
                         </div>
@@ -296,9 +288,11 @@
 </div>
 </div>
 </div>
+@if (count($related_products) > 0)
 <div class="product-area pb-100">
     @include("web.pages.home.fragments.list_products" , ["is_carousel" => true,
     "title" => "Related Products" , "sub_title" => "Subtitle goes here" , "products" => $related_products])
 </div>
+@endif
 @endsection
 @include("web.pages.shop.includes.cart_script")

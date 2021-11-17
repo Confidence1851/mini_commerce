@@ -13,6 +13,16 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService
 {
+    public static function getById($id): Order
+    {
+        return Order::find($id);
+    }
+
+    public static function getByReference($reference): Order
+    {
+        return Order::where("reference" , $reference)->first();
+    }
+
     public static function create($data): Order
     {
         DB::beginTransaction();
@@ -42,7 +52,7 @@ class OrderService
         $cart = CartService::refreshCart($cart->id);
 
         $more = [
-            "reference" => getRandomToken(8, true),
+            "reference" => self::generateReference(),
             "amount" => $cart->total,
             "discount" => $cart->discount,
             "status" => Constants::PENDING,
@@ -65,6 +75,15 @@ class OrderService
         throw $e;
     }
 
+    }
+
+
+    public static function generateReference(){
+        $code = strtoupper(getRandomToken(6));
+        if(Order::where("reference" , $code)->count() > 0){
+            return self::generateReference();
+        }
+        return $code;
     }
 
 }

@@ -4,15 +4,18 @@ $(function() {
 	var form = $('#contact-form');
 
 	// Get the messages div.
-	var formMessages = $('.form-messege');
+    const message_container = $("#form_reponse_container");
 
 	// Set up an event listener for the contact form.
 	$(form).submit(function(e) {
 		// Stop the browser from submitting the form.
 		e.preventDefault();
+        $(message_container).addClass('d-none');
 
 		// Serialize the form data.
 		var formData = $(form).serialize();
+
+        form.find("button").attr("disabled" , true);
 
 		// Submit the form using AJAX.
 		$.ajax({
@@ -21,27 +24,31 @@ $(function() {
 			data: formData
 		})
 		.done(function(response) {
-			// Make sure that the formMessages div has the 'success' class.
-			$(formMessages).removeClass('error');
-			$(formMessages).addClass('success');
+			// Make sure that the message_container div has the 'success' class.
+			$(message_container).removeClass('d-none');
+			$(message_container).removeClass('alert-danger');
+			$(message_container).addClass('alert-success');
 
 			// Set the message text.
-			$(formMessages).text(response);
+			$(message_container).text(response.message);
 
 			// Clear the form.
 			$('#contact-form input,#contact-form textarea').val('');
+            form.find("button").removeAttr("disabled");
 		})
 		.fail(function(data) {
-			// Make sure that the formMessages div has the 'error' class.
-			$(formMessages).removeClass('success');
-			$(formMessages).addClass('error');
-
+			// Make sure that the message_container div has the 'error' class.
+			$(message_container).removeClass('d-none');
+			$(message_container).removeClass('alert-success');
+			$(message_container).addClass('alert-danger');
 			// Set the message text.
 			if (data.responseText !== '') {
-				$(formMessages).text(data.responseText);
+                let errorResponse = JSON.parse(data.responseText);
+				$(message_container).text(errorResponse.message);
 			} else {
-				$(formMessages).text('Oops! An error occured and your message could not be sent.');
+				$(message_container).text('Oops! An error occured and your message could not be sent.');
 			}
+            form.find("button").removeAttr("disabled");
 		});
 	});
 

@@ -42,13 +42,16 @@ class TransactionService
         return $validator->validated();
     }
 
-    public static function create($data): Transaction
+    public static function create($data , bool $notify = true): Transaction
     {
         $data = self::validate($data);
         $data["reference"] = self::generateReferenceNo();
         $data["total"] = $data["amount"] + $data["fee"];
         $transaction = Transaction::create($data);
-        Notification::sendNow($transaction->user , new TransactionNotification($transaction));
+        
+        if($notify){
+            Notification::sendNow($transaction->user , new TransactionNotification($transaction));
+        }
         return $transaction;
     }
 
