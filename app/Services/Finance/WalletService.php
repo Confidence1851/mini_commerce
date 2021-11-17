@@ -43,10 +43,8 @@ class WalletService
             "user_id" => $user_id,
             "current_balance" => 0,
             "locked_balance" => 0,
-            "total_earnings" => 0,
-            "elite_points" => 0,
             "pin" => null,
-            "payment_ref" => self::newRefCode()
+            // "payment_ref" => self::newRefCode()
         ]);
     }
 

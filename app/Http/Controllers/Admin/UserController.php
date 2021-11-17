@@ -6,7 +6,6 @@ use App\Helpers\Constants;
 use App\Helpers\MediaHandler;
 use App\Helpers\Wallet;
 use App\Http\Controllers\Controller;
-use App\Models\Plan;
 use App\Models\User;
 use App\QueryBuilder\UserQueryBuilder;
 use App\Services\Auth\AuthorizationService;

@@ -13,10 +13,16 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    
-    public function index()
+
+    public function index(Request $request)
     {
-        $orders = Order::with(["user", "payment"])->latest()->paginate();
+        $builder = Order::with(["user", "payment"]);
+
+        if(!empty($key = $request->user_id)){
+            $builder = $builder->where("user_id" , $key);
+        }
+
+        $orders = $builder->latest()->paginate();
         return view("dashboards.admin.orders.index", [
             "orders" => $orders
         ]);

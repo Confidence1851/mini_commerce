@@ -40,16 +40,6 @@
                                     <b>Role:</b> {{ $user->role }}
                                 </li>
                                 <li class="contacts-block__item mb-2 mr-2">
-                                    <b>Ref Code:</b> {{ $user->ref_code }}
-                                </li>
-                                <li class="contacts-block__item mb-2 mr-2">
-                                    <b>Ref Url:</b> <a href="{{ $user->refUrl() }}"
-                                        target="_blank">{{ $user->refUrl() }}</a>
-                                </li>
-                                <li class="contacts-block__item mb-2 mr-2">
-                                    <b>Referred By:</b> {{ $user->referrer()->names() ?? 'N/A' }}
-                                </li>
-                                <li class="contacts-block__item mb-2 mr-2">
                                     <b>Email Verified At:</b> {{ $user->email_verified_at }}
                                 </li>
                                 <li class="contacts-block__item mb-2 mr-2">
@@ -68,7 +58,7 @@
 
             <div class="widget widget-account-invoice-three">
 
-                <div class="widget-heading">
+                <div class="widget-heading d-none">
                     <div class="wallet-usr-info">
                         <div class="add" data-toggle="modal" data-target="#newTransactionModal">
                             <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -88,56 +78,23 @@
                     </div>
                 </div>
 
-                <div class="widget-amount">
 
-                    <div class="w-a-info funds-received">
-                        <span>Referral Earnings <i data-feather="chevron-up"></i></span>
-                        <p>{{ format_money($wallet->referral_earnings) }}</p>
-                    </div>
-
-                    <div class="w-a-info funds-spent">
-                        <span>Non-referral Earnings <i data-feather="chevron-down"></i></span>
-                        <p>{{ format_money($wallet->non_referral_earnings) }}</p>
-                    </div>
-                </div>
 
                 <div class="widget-content">
 
-                    <div class="bills-stats">
-                       Current Plan: <span class="ml-3">
-                           {{ optional($user->activePlan())->plan_name }}
-                       </span>
-                    </div>
-
                     <div class="invoice-list">
 
-                        {{-- <div class="inv-detail">
-                            <div class="info-detail-1">
-                                <p>Netflix</p>
-                                <p><span class="w-currency">$</span> <span class="bill-amount">13.85</span></p>
-                            </div>
-                            <div class="info-detail-2">
-                                <p>BlueHost VPN</p>
-                                <p><span class="w-currency">$</span> <span class="bill-amount">15.66</span></p>
-                            </div>
-                        </div> --}}
 
                         <div class="inv-action form-row">
-                            <a href="{{ route("admin.subscriptions.index" , [ "user_id" => $user->id ]) }}" class="btn btn-outline-primary view-details col-auto mb-2">
-                                Subscriptions
+                            <a href="{{ route("admin.orders.index" , ["user_id" => $user->id])}}" class="btn btn-outline-primary pay-now col-auto mb-2">
+                               View Orders
                             </a>
-                            <a href="{{route("admin.withdrawals.index" , [ "user_id" => $user->id ])}}" class="btn btn-outline-primary pay-now col-auto mb-2">
-                                Withdrawals
+                            <a href="{{ route("admin.payments.index", ["user_id" => $user->id])}}" class="btn btn-outline-primary pay-now col-auto mb-2">
+                               View Payments
                             </a>
-                            <a href="{{route("admin.referrals.index", [ "referrer_id" => $user->id ])}}" class="btn btn-outline-primary view-details col-auto mb-2">
-                                Referrals
-                            </a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary pay-now col-auto mb-2">
-                                Activities
-                            </a>
-                            <a href="{{route("admin.transactions.index", [ "user_id" => $user->id ])}}" class="btn btn-outline-primary view-details col-auto mb-2">
+                            {{-- <a href="{{route("admin.transactions.index", [ "user_id" => $user->id ])}}" class="btn btn-outline-primary view-details col-auto mb-2">
                                 Transactions
-                            </a>
+                            </a> --}}
                         </div>
 
                          <!-- <div class="rol">

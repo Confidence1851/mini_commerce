@@ -13,9 +13,15 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $payments = Payment::with("user")->latest()->paginate();
+        $builder = Payment::with("user");
+
+        if(!empty($key = $request->user_id)){
+            $builder = $builder->where("user_id" , $key);
+        }
+
+        $payments = $builder->latest()->paginate();
         return view("dashboards.admin.payments.index" , [
             "payments" => $payments
         ]);
