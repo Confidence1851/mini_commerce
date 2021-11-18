@@ -45,7 +45,7 @@
             <div class="row align-items-center">
                 <div class="col-6">
                     <div class="mobile-logo">
-                        <a href="index.html">
+                        <a href="{{ url('/') }}">
                             <img alt="" src="assets/images/logo/logo.png">
                         </a>
                     </div>

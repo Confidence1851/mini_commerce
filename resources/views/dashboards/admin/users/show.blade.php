@@ -57,7 +57,7 @@
         <div class="col-md-8 layout-spacing mt-4">
 
             <div class="widget widget-account-invoice-three">
-
+{{--
                 <div class="widget-heading d-none">
                     <div class="wallet-usr-info">
                         <div class="add" data-toggle="modal" data-target="#newTransactionModal">
@@ -76,7 +76,7 @@
                             {{ format_money($wallet->balance) }}
                         </h5>
                     </div>
-                </div>
+                </div> --}}
 
 
 

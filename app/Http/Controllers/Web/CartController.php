@@ -26,6 +26,7 @@ class CartController extends Controller
     {
         try {
             if (auth()->check()) {
+                $request["quantity"] = $request->quantity ?? 1;
                 $validator = Validator::make($request->all(), [
                     "quantity" => "required",
                     "color" => "nullable|string",

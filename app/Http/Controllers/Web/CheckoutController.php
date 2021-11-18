@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Constants\PaymentConstants;
+use App\Exceptions\Shop\OrderException;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use App\Services\Payment\CreateCardPaymentService;
@@ -11,6 +12,7 @@ use App\Services\Payment\PaymentService;
 use App\Services\Shop\CartService;
 use App\Services\Shop\DeliveryAddressService;
 use App\Services\Shop\Order\OrderService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -73,10 +75,37 @@ class CheckoutController extends Controller
                 $user->update([
                     "payment_ref" => PaymentService::newRefCode()
                 ]);
-                dd("ghg");
+
+                return redirect()->route("web.shop.checkout.status", [
+                    "reference" => $order->reference,
+                    "status" => "success"
+                ]);
             }
         } catch (ValidationException $e) {
             throw $e;
+        } catch (ValidationException $e) {
+            return redirect()->route("web.shop.checkout.status", [
+                "reference" => $order->reference,
+                "status" => "error",
+            ]);
+        }
+    }
+
+    public function status(Request $request)
+    {
+        try {
+            $order = OrderService::getByReference($request->reference);
+            $status = $request->status;
+            $message = $request->message ?? "Unable to verify your order. Kindly check your dashboard or reach out to the admin.";
+
+            if ($status == "success") {
+                $message = "Your order with reference #$order->reference has been created successfully.";
+            }
+            return view("web.pages.shop.checkout_status", ["status" => $status, "message" => $message]);
+        } catch (OrderException $e) {
+            return view("web.pages.shop.checkout_status", ["status" => "warning", "message" => $e->getMessage()]);
+        } catch (Exception $e) {
+            return view("web.pages.shop.checkout_status", ["status" => "danger", "message" => $message]);
         }
     }
 }

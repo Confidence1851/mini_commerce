@@ -1,6 +1,6 @@
 @extends("web.layouts.app")
 @section("content")
-<div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url(assets/images/bg/breadcrumb.jpg);">
+<div class="breadcrumb-area pt-95 pb-100 bg-img" style="background-image:url({{$web_assets}}/images/bg/breadcrumb.jpg);">
     <div class="container">
         <div class="breadcrumb-content text-center">
             <div class="breadcrumb-title">
@@ -8,7 +8,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="active">Shop </li>
             </ul>
@@ -46,7 +46,7 @@
                             <div class="row">
                                 @foreach ($products as $product)
                                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
-                                   @include("web.pages.shop.fragments.single_product")
+                                    @include("web.pages.shop.fragments.single_product")
                                 </div>
                                 @endforeach
                             </div>
@@ -54,6 +54,13 @@
                         <div id="shop-2" class="tab-pane active">
                             <div class="row">
                                 @foreach ($products as $product)
+                                @php
+                                $in_cart = false;
+                                if(auth()->check()){
+                                $cart_item = cartitem(auth()->id() , $product->id);
+                                $in_cart = !empty($cart_item);
+                                }
+                                @endphp
                                 <div class="col-lg-6">
                                     <div class="shop-list-wrap mb-50">
                                         <div class="row">
@@ -81,14 +88,29 @@
                                                     </div>
                                                     <p>{{ $product->description}}</p>
                                                     <div class="shop-list-btn-wrap">
+                                                        @auth
                                                         <div class="shop-list-cart default-btn btn-hover">
-                                                            <a href="#">ADD TO CART</a>
+                                                            <a title="{{$in_cart ? "Remove From Cart" : "Add To Cart"}}" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.save" , $product->id )}}" class="btn-group cart_add_or_remove_btn">
+                                                                <span class="spinner spinner-border spinner-border-sm d-none"></span>
+                                                                <span class="label">
+                                                                    {{$in_cart ? "Remove From Cart" : "Add To Cart"}}
+                                                                </span>
+                                                            </a>
                                                         </div>
                                                         <div class="shop-list-wishlist default-btn btn-hover">
-                                                            <a href="#"><i class="la la-heart-o"></i></a>
+                                                            @livewire("shop.wishlist-component" , ["product" => $product])
+                                                        </div>
+                                                        @else
+                                                        <div class="shop-list-cart default-btn btn-hover">
+                                                            <a href="{{ route("login")}}">ADD TO CART</a>
+                                                        </div>
+                                                        <div class="shop-list-wishlist default-btn btn-hover">
+                                                            <a href="{{ route("login")}}"><i class="la la-heart-o"></i></a>
                                                         </div>
 
+                                                        @endauth
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -107,3 +129,4 @@
     </div>
 </div>
 @endsection
+@include("web.pages.shop.includes.cart_script")

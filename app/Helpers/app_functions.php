@@ -7,6 +7,7 @@ use App\Models\Plan;
 use App\Models\PostCategory;
 use App\Models\User;
 use App\Models\VerificationPin;
+use App\Services\Shop\CartItemService;
 use App\Services\Shop\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -370,5 +371,10 @@ function cart()
     if (!empty($user_id = auth()->id())) {
        return CartService::getCartByUser($user_id);
     }
+}
+
+function cartitem($user_id , $product_id)
+{
+    return CartItemService::inCart($user_id, $product_id);
 }
 

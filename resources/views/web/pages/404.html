@@ -41,7 +41,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{ url('/') }}">
                                     <img src="assets/images/logo/logo.png" alt="logo">
                                 </a>
                             </div>
@@ -50,9 +50,9 @@
                             <div class="main-menu">
                                 <nav>
                                     <ul>
-                                        <li class="angle-shape"><a href="index.html">Home </a>
+                                        <li class="angle-shape"><a href="{{ url('/') }}">Home </a>
                                             <ul class="submenu">
-                                                <li><a href="index.html">Home version 1 </a></li>
+                                                <li><a href="{{ url('/') }}">Home version 1 </a></li>
                                                 <li><a href="index-2.html">Home version 2 </a></li>
                                             </ul>
                                         </li>
@@ -172,7 +172,7 @@
                     <div class="row align-items-center">
                         <div class="col-6">
                             <div class="mobile-logo">
-                                <a href="index.html">
+                                <a href="{{ url('/') }}">
                                     <img alt="" src="assets/images/logo/logo.png">
                                 </a>
                             </div>
@@ -209,9 +209,9 @@
                         <!-- mobile menu navigation start -->
                         <nav>
                             <ul class="mobile-menu">
-                                <li class="menu-item-has-children"><a href="index.html">Home</a>
+                                <li class="menu-item-has-children"><a href="{{ url('/') }}">Home</a>
                                     <ul class="dropdown">
-                                        <li><a href="index.html">Home version 1 </a></li>
+                                        <li><a href="{{ url('/') }}">Home version 1 </a></li>
                                         <li><a href="index-2.html">Home version 2 </a></li>
                                     </ul>
                                 </li>
@@ -375,7 +375,7 @@
                     </div>
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="active">404 page </li>
                     </ul>
@@ -390,7 +390,7 @@
                             <img alt="" src="assets/images/banner/404.png">
                             <h2>Oops! Sorry, we could not find the page</h2>
                             <div class="error-btn default-btn btn-hover">
-                                <a class="btn-size-xs btn-bg-theme btn-color black-color" href="index.html">BACK TO HOME PAGE</a>
+                                <a class="btn-size-xs btn-bg-theme btn-color black-color" href="{{ url('/') }}">BACK TO HOME PAGE</a>
                             </div>
                             <div class="pro-sidebar-search">
                                 <form class="pro-sidebar-search-form" action="#">

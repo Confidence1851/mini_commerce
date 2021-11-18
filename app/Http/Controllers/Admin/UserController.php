@@ -78,15 +78,14 @@ class UserController extends Controller
     public function show($id)
     {
         AuthorizationService::hasPermissionTo("can_read_users");
-        $user = User::with("wallet")
-            ->whereNotIn("email", [Constants::DEV_EMAIL])
+        $user = User::whereNotIn("email", [Constants::DEV_EMAIL])
             ->findOrFail($id);
-        $wallet = WalletService::get($user->id);
-        $walletOptions = Constants::WALLET_OPTIONS;
+        // $wallet = WalletService::get($user->id);
+        // $walletOptions = Constants::WALLET_OPTIONS;
         return view("dashboards.admin.users.show", [
             "user" => $user,
-            "wallet" => $wallet,
-            "walletOptions" => $walletOptions
+            // "wallet" => $wallet,
+            // "walletOptions" => $walletOptions
         ]);
     }
 

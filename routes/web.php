@@ -43,6 +43,7 @@ Route::as("web.")->namespace("Web")->group(function () {
         Route::prefix("checkout")->as("checkout.")->middleware('auth')->group(function () {
             Route::get('index', "CheckoutController@index")->name("index");
             Route::post('process', "CheckoutController@process")->name("process");
+            Route::get('status', "CheckoutController@status")->name("status");
         });
     });
 });

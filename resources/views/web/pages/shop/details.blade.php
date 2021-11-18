@@ -8,7 +8,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="active">Product details </li>
             </ul>
@@ -109,19 +109,17 @@
                     <div class="pro-details-meta">
                         <span>Categories :</span>
                         <ul>
-                            <li><a href="#">Minimal,</a></li>
-                            <li><a href="#">Furniture,</a></li>
-                            <li><a href="#">Fashion</a></li>
+                            <li><a href="#">{{ optional($product->category)->name }}</a></li>
                         </ul>
                     </div>
-                    <div class="pro-details-meta">
+                    {{-- <div class="pro-details-meta">
                         <span>Tag :</span>
                         <ul>
                             <li><a href="#">Fashion, </a></li>
                             <li><a href="#">Furniture,</a></li>
                             <li><a href="#">Electronic</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

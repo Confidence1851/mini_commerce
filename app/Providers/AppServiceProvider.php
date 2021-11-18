@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Helpers\GuestHelper;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +35,12 @@ class AppServiceProvider extends ServiceProvider
                 "logo_icon_image" => my_asset("logo_icon.png"),
                 'web_assets' => url('/').env('RESOURCE_PATH').'/web',
                 'admin_assets' => url('/').env('RESOURCE_PATH').'/admin',
+            ]);
+        });
+
+        view()->composer("web.layouts.includes.footer",function($view){
+            $view->with([
+                "product_categories" => ProductCategory::limit(4)->latest()->get(),
             ]);
         });
 

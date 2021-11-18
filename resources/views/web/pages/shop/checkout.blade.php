@@ -8,7 +8,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="active">checkout </li>
             </ul>
