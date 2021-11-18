@@ -16,6 +16,7 @@
                     <th>User</th>
                     <th>Reference</th>
                     <th>order Method</th>
+                    <th>Items</th>
                     <th>Amount</th>
                     <th>Discount</th>
                     <th>Status</th>
@@ -32,8 +33,9 @@
                         </td>
                         <td>{{ $order->reference }}</td>
                         <td>{{ $order->payment_method }}</td>
-                        <td>{{ format_money($order->amount , 2 , $order->payment->currency) }}</td>
-                        <td>{{ format_money($order->discount , 2 , $order->payment->currency) }}</td>
+                        <td>{{ $order->items()->count() }}</td>
+                        <td>{{ format_money($order->amount , 2 , optional($order->payment)->currency) }}</td>
+                        <td>{{ format_money($order->discount , 2 , optional($order->payment)->currency) }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ date('Y-m-d', strtotime($order->created_at)) }}</td>
                         <td>

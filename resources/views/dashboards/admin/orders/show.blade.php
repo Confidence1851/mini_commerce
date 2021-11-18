@@ -23,10 +23,10 @@
                     <b>Unique Reference</b> : {{$order->reference }}
                 </div>
                 <div class="mb-2">
-                    <b>Total Amount</b> : {{ format_money($order->amount , 2 , $order->payment->currency)}}
+                    <b>Total Amount</b> : {{ format_money($order->amount , 2 , optional($order->payment)->currency)}}
                 </div>
                 <div class="mb-2">
-                    <b>Total Discount</b> : {{ format_money($order->discount , 2 , $order->payment->currency)}}
+                    <b>Total Discount</b> : {{ format_money($order->discount , 2 , optional($order->payment)->currency)}}
                 </div>
                 <div class="mb-2">
                     <b>Order Status</b> : {{$order->status }}
@@ -36,16 +36,16 @@
                 </div>
                 <hr>
                 <div class="mb-2">
-                    <b>Payment Reference</b> : {{$order->payment->reference }}
+                    <b>Payment Reference</b> : {{optional($order->payment)->reference }}
                 </div>
                 <div class="mb-2">
-                    <b>Payment Status</b> : {{$order->payment->status }}
+                    <b>Payment Status</b> : {{optional($order->payment)->status }}
                 </div>
                 <div class="mb-2">
-                    <b>Payment Payer Email</b> : {{$order->payment->payer_email }}
+                    <b>Payment Payer Email</b> : {{optional($order->payment)->payer_email }}
                 </div>
                 <div class="mb-2">
-                    <b>Payment Method</b> : {{$order->payment->method }}
+                    <b>Payment Method</b> : {{optional($order->payment)->method }}
                 </div>
             </div>
         </div>
@@ -129,16 +129,16 @@
                             @foreach ($order->items as $key => $item)
                             <tr>
                                 <td>{{ $key+1}}</td>
-                                <td><img src="{{ optional($order->product)->getDefaultImage() }}" alt="{{$product->name}}" width="100"></td>
+                                <td><img src="{{ optional($item->product)->getDefaultImage() }}" alt="{{$item->product->name}}" width="100"></td>
                                 <td>
                                     <a href="{{ route("admin.products.show" , $order->user_id) }}" class="text-primary">
                                         {{ $item->product_name }}
                                     </a>
                                 </td>
-                                <td>{{ format_money($item->unit_price , 2 , $order->payment->currency) }}</td>
-                                <td>{{ format_money($item->discount , 2 , $order->payment->currency) }}</td>
+                                <td>{{ format_money($item->unit_price , 2 , optional($order->payment)->currency) }}</td>
+                                <td>{{ format_money($item->discount , 2 , optional($order->payment)->currency) }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>{{ format_money($item->total , 2 , $order->payment->currency) }}</td>
+                                <td>{{ format_money($item->total , 2 , optional($order->payment)->currency) }}</td>
                                 {{-- <td>{{ $item->status }}</td> --}}
                                 <td>{{ $item->extra }}</td>
                             </tr>
