@@ -1,11 +1,11 @@
 @if (auth()->check())
-    <form class="header-search-form" action="{{ route('blog.search') }}">
+    <!-- <form class="header-search-form" action="{{ route('blog.search') }}">
         <div class="axil-search form-group">
             <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
             <input type="text" class="form-control" placeholder="Search" name="search"
                 value="{{ $searchKeyword ?? '' }}">
         </div>
-    </form>
+    </form> -->
 
     @include("web.layouts.includes.profile_dropdown")
 

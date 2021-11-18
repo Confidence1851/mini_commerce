@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\StatusConstants;
 use App\Helpers\Constants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +67,15 @@ class Product extends Model
             return 0;
         }
         return number_format($this->discount * 100 / $this->price);
+    }
+
+    public function scopeSearch($query , $value){
+        $query->whereRaw("CONCAT(description,' ', reference) LIKE ?", ["%$value%"])
+        ->orWhere("name" , "like" , "%$value%");
+    }
+
+    public function scopeActive($query){
+        $query->where("status" , StatusConstants::ACTIVE);
     }
 }
 

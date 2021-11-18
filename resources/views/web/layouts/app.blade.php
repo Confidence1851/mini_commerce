@@ -15,8 +15,8 @@
             <a class="search-close"><i class="la la-close"></i></a>
             <div class="search-content">
                 <p>Start typing and press Enter to search</p>
-                <form class="search-form" action="#">
-                    <input type="text" placeholder="Search entire store…" value="{{ $searchKeyword ?? ''}}">
+                <form class="search-form" action="{{ route('web.shop.index')}}" method="GET">
+                    <input type="text" name="search" placeholder="Search entire store…" value="{{ request()->query('builder')}}">
                     <button class="button-search"><i class="la la-search"></i></button>
                 </form>
             </div>

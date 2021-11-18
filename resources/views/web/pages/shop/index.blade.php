@@ -53,6 +53,7 @@
                         </div>
                         <div id="shop-2" class="tab-pane active">
                             <div class="row">
+                                @if ($products->isNotempty())
                                 @foreach ($products as $product)
                                 @php
                                 $in_cart = false;
@@ -117,16 +118,23 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                @else
+                                <div class="col-12 text-center">
+                                    <div class="alert alert-danger p-4">{{$message}}</div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    {!! $products->links("pagination::bootstrap-4")!!}
-                </div>
             </div>
         </div>
+        <div class="text-center">
+            {!! $products->links("pagination::bootstrap-4")!!}
+        </div>
     </div>
+</div>
+</div>
 </div>
 @endsection
 @include("web.pages.shop.includes.cart_script")

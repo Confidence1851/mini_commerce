@@ -2,22 +2,37 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Constants\StatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Exceptions\Shop\ProductException;
+use Exception;
 use App\Services\Shop\CartItemService;
-
+use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class ShopController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(20);
-        return view("web.pages.shop.index", ["products" => $products]);
+
+            $builder = Product::active();
+            $message = $request->message ?? "Result not found, try searching for another keyword";
+
+
+            if (!empty($key = $request->search)) {
+                $builder = $builder->where('name', 'LIKE', "%$key%");
+            }
+
+            $products = $builder->paginate(25);
+            return view("web.pages.shop.index", ["products" => $products, 'message' => $message]);
+        
     }
 
     public function details($id)
     {
+
         $in_cart = false;
         $quantity = 1;
         $product = Product::findOrFail($id);
@@ -34,9 +49,8 @@ class ShopController extends Controller
         return view("web.pages.shop.details", [
             "product" => $product,
             "related_products" => $related_product,
-            "in_cart" => $in_cart, "quantity" => $quantity
+            "in_cart" => $in_cart, "quantity" => $quantity,
+
         ]);
     }
-
-
 }
