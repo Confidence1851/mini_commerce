@@ -17,7 +17,7 @@
                 <div class="col-xl-2 col-lg-2">
                     <div class="header-right-wrap">
                         <div class="same-style header-search ml-15">
-                            <a class="search-active" href="#"><i class="la la-search"></i></a>
+                            <a class="search-active" href=""><i class="la la-search"></i></a>
                         </div>
                         @auth
                         <div class="same-style cart-wrap">

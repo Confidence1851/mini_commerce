@@ -93,6 +93,7 @@ class CheckoutController extends Controller
 
     public function status(Request $request)
     {
+
         try {
             $order = OrderService::getByReference($request->reference);
             $status = $request->status;

@@ -22,12 +22,15 @@
                 <div class="shop-top-bar">
                     <div class="select-shoing-wrap">
                         <div class="shop-select">
-                            <select>
-                                <option value="">Sort by newness</option>
-                                <option value="">A to Z</option>
-                                <option value=""> Z to A</option>
-                                <option value="">In stock</option>
-                            </select>
+                            <form class="input-group" action="{{ url()->current() }}" method="GET">
+                                <select class="form-control" name="orderBy">
+                                    <option value="" disabled selected>Select Type</option>
+                                    @foreach ($orderByOptions as $key => $options)
+                                    <option value="{{$key}}" {{$key == request()->query('orderBy') ? "selected" : "" }}><a href="{{ url()->current() }}">{{ $options['label'] }}</a></option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-outline-danger btn-sm ml-3">Filter</button>
+                            </form>
                         </div>
                         <p>Showing 1–12 of 20 result</p>
                     </div>
@@ -53,6 +56,7 @@
                         </div>
                         <div id="shop-2" class="tab-pane active">
                             <div class="row">
+                                @if ($products->isNotempty())
                                 @foreach ($products as $product)
                                 @php
                                 $in_cart = false;
@@ -117,16 +121,23 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                @else
+                                <div class="col-12 text-center">
+                                    <div class="alert alert-danger p-4">{{$message}}</div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    {!! $products->links("pagination::bootstrap-4")!!}
-                </div>
             </div>
         </div>
+        <div class="text-center">
+            {!! $products->links("pagination::bootstrap-4")!!}
+        </div>
     </div>
+</div>
+</div>
 </div>
 @endsection
 @include("web.pages.shop.includes.cart_script")

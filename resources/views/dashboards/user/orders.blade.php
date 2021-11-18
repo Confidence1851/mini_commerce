@@ -1,4 +1,5 @@
 @extends("dashboards.user.layout.app" , ["breadcrumb_title" => "Orders"])
+@extends("dashboards.user.layout.app" , ["breadcrumb_title" => "Orders"])
 @section("content_")
 
 <div class="tab-pane fade show active" id="orders" role="tabpanel">
@@ -30,7 +31,7 @@
                         <td>{{ format_money($order->amount) }}</td>
                         <td>{{ $order->status}}</td>
                         <td>{{ $order->created_at}}</td>
-                        <td><a href="#" class="check-btn sqr-btn ">View</a></td>
+                        <td><a href="{{ route('user.order-details', [$order->id]) }}" class="check-btn sqr-btn ">View</a></td>
                     </tr>
                     @endforeach
 

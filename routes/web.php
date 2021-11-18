@@ -60,6 +60,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");
     Route::get('/orders', "DashboardController@orders")->name("orders");
+    Route::get('/order-details/{id}', "DashboardController@orderDetails")->name("order-details");
     Route::get('/payments', "DashboardController@payments")->name("payments");
     Route::match(["get", "post"], '/address', "AccountController@address")->name("address");
     Route::match(["get", "post"], '/account', "AccountController@account")->name("account");
