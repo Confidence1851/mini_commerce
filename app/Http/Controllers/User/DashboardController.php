@@ -22,6 +22,12 @@ class DashboardController extends Controller
         return view("dashboards.user.orders" , ["orders" => $orders]);
     }
 
+    public function orderDetails($id){
+
+       $orderDetails = Order::where('id', $id)->find($id);
+        return view('dashboards.user.orderdetails',['orderDetails'=>$orderDetails]);
+    }
+
     public function payments(Request $request)
     {
         $user = auth()->user();

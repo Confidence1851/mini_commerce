@@ -70,13 +70,23 @@ class Product extends Model
     }
 
     public function scopeSearch($query , $value){
-        $query->whereRaw("CONCAT(description,' ', reference) LIKE ?", ["%$value%"])
+        $query->whereRaw("CONCAT(name,' ', reference) LIKE ?", ["%$value%"])
         ->orWhere("name" , "like" , "%$value%");
     }
 
     public function scopeActive($query){
-        $query->where("status" , StatusConstants::ACTIVE);
+        $query->where("status" , StatusConstants::ACTIVE )
+        ->orwhere("status", StatusConstants::INACTIVE);
     }
+
+    public function scopeOrder( $orderByOptions){
+        Product::where('created_at', 'asc', $orderByOptions)->latest();
+    }
+
+    // public function scopeActive($query){
+
+    // }
 }
+
 
 

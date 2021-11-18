@@ -22,12 +22,15 @@
                 <div class="shop-top-bar">
                     <div class="select-shoing-wrap">
                         <div class="shop-select">
-                            <select>
-                                <option value="">Sort by newness</option>
-                                <option value="">A to Z</option>
-                                <option value=""> Z to A</option>
-                                <option value="">In stock</option>
-                            </select>
+                            <form class="input-group" action="{{ url()->current() }}" method="GET">
+                                <select class="form-control" name="orderBy">
+                                    <option value="" disabled selected>Select Type</option>
+                                    @foreach ($orderByOptions as $key => $options)
+                                    <option value="{{$key}}" {{$key == request()->query('orderBy') ? "selected" : "" }}><a href="{{ url()->current() }}">{{ $options['label'] }}</a></option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-outline-danger btn-sm ml-3">Filter</button>
+                            </form>
                         </div>
                         <p>Showing 1–12 of 20 result</p>
                     </div>
