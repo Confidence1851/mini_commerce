@@ -1,29 +1,44 @@
-@extends('auth.layouts.app')
-
+@extends("web.layouts.app" , ["meta_title" => "Login"])
+{{-- @section('title', 'Login') --}}
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-    <h1 class="title">Forgot Password</h1>
-    <form method="POST" action="{{ route('password.email') }}" class="subscription-form form-row">
-        @csrf
-        <div class="form-group col-12">
-            <label for="">Email Address</label>
-            <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                value="{{ old('email') }}" required placeholder="Enter your email" autofocus>
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-        <div class="col-12 row mb-4 mt-2">
-            <div class="col-md-4">
-                <button class="axil-button button-rounded"><span>Send Password Reset Link</span></button>
+
+<div class="login-register-area pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ms-auto me-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" data-bs-toggle="tab" href="#lg1">
+                            <h4> Forgot Password </h4>
+                        </a>
+
+                    </div>
+                    <div class="tab-content">
+                        @include("notifications.flash_messages")
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                    @endif
+                                    <form action="{{ route('password.email') }}" method="POST">
+                                        @csrf
+                                        <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></>
+                                     
+                                        <div class="button-box">
+                                            <button type="submit">Send Password-reset Link</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
-    
+    </div>
+</div>
+
 @endsection

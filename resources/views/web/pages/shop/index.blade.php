@@ -32,7 +32,7 @@
                                 <button class="btn btn-outline-danger btn-sm ml-3">Filter</button>
                             </form>
                         </div>
-                        <p>Showing 1–12 of 20 result</p>
+                        <p>Showing {{($products->currentpage()-1)*$products->perpage()+1}} to {{ $products->currentpage()*(($products->perpage() < $products->total()) ? $products->perpage(): $products->total())}} of {{ $products->total()}} result</p>
                     </div>
                     <div class="shop-tab nav">
                         <a href="#shop-1" data-bs-toggle="tab">

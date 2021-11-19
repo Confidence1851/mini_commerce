@@ -28,7 +28,7 @@
                                             <div class="login-toggle-btn">
                                                 <input type="checkbox">
                                                 <label>Remember me</label>
-                                                <a href="#">Forgot Password?</a>
+                                                <a href="{{ route('password.request') }}">Forgot Password?</a>
                                             </div>
                                             <button type="submit">Login</button>
                                         </div>

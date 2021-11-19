@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/provider/credit', [ActivityController::class , "receiveMoneyFromProvider"])->name("provider.credit");
-Route::post('/provider/debit', [ActivityController::class , "sendMoneyToProvider"])->name("provider.debit");
+// Route::post('/provider/credit', [ActivityController::class , "receiveMoneyFromProvider"])->name("provider.credit");
+// Route::post('/provider/debit', [ActivityController::class , "sendMoneyToProvider"])->name("provider.debit");
 

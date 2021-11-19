@@ -55,7 +55,7 @@ Route::as("blog.")->namespace("Web")->group(function () {
     Route::get('share/{uuid}/{platform}', "BlogController@share")->name("share");
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\Web\IndexController::class, 'index'])->name('home');
 
 Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");

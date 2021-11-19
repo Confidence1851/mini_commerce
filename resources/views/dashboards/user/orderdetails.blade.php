@@ -1,52 +1,40 @@
-@extends("dashboards.user.layout.app" , ["breadcrumb_title" => "Order Details"])
+@extends("dashboards.user.layout.app" , ["breadcrumb_title" => "Orders details"])
 @section("content_")
 
-<div class="col-md-8 mx-auto">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class=" col-md-8 ">
-                    <h4>Order Details
-                        <span class="fr">
-                            <a type="button" class="btn btn-sm btn-danger">Cancel details</a>
-                        </span>
-                    </h4>
-                </div>
-            </div>
+<div class="tab-pane fade show active" id="orders" role="tabpanel">
+    <div class="myaccount-content">
+        <h3>Order Details</h3>
+        <div class="myaccount-table table-responsive text-center">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Unique Reference</th>
+                        <th>Total Amount</th>
+                        <th>Total Discount</th>
+                        <th>Status</th>
+                        <th>Payment Method</th>
+                        <th>Time/Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>{{$orderDetails->user->names()}}</td>
+                        <td>{{$orderDetails->reference }}</td>
+                        <td>{{ format_money($orderDetails->amount , 2 , optional($orderDetails->payment)->currency)}}</td>
+                        <td>{{ format_money($orderDetails->discount , 2 , optional($orderDetails->payment)->currency)}}</td>
+                        <td>{{ $orderDetails->status}}</td>
+                        <td>{{ $orderDetails->payment_method}}</td>
+                        <td>{{ $orderDetails->created_at}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
         </div>
-        <div class="card-body">
-            <div class="mb-2">
-                <b>Customer Name</b> : {{$orderDetails->user->names()}}
-            </div>
-            <div class="mb-2">
-                <b>Unique Reference</b> : {{$orderDetails->reference }}
-            </div>
-            <div class="mb-2">
-                <b>Total Amount</b> : {{ format_money($orderDetails->amount , 2 , optional($orderDetails->payment)->currency)}}
-            </div>
-            <div class="mb-2">
-                <b>Total Discount</b> : {{ format_money($orderDetails->discount , 2 , optional($orderDetails->payment)->currency)}}
-            </div>
-            <div class="mb-2">
-                <b>Status</b> : {{$orderDetails->status }}
-            </div>
-            <div class="mb-2">
-                <b>Customer Comment</b> : {{$orderDetails->comment ?? "None" }}
-            </div>
-            <hr>
-                <div class="mb-2">
-                    <b>Payment Reference</b> : {{ $orderDetails->reference }}
-                </div>
-                <div class="mb-2">
-                    <b>Payment Status</b> : {{$orderDetails->status }}
-                </div>
-                <div class="mb-2">
-                    <b>Payment Payer Email</b> : {{ $orderDetails->payer_email }}
-                </div>
-                <div class="mb-2">
-                    <b>Payment Method</b> : {{$orderDetails->payment_method }}
-                </div>
-            </div>
+
     </div>
 </div>
+
 @endsection
