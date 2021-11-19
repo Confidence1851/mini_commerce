@@ -32,7 +32,11 @@
                                 <button class="btn btn-outline-danger btn-sm ml-3">Filter</button>
                             </form>
                         </div>
+                        @if($products->isempty())
+                        <p>Showing 0 of 0 result</p>
+                        @else
                         <p>Showing {{($products->currentpage()-1)*$products->perpage()+1}} to {{ $products->currentpage()*(($products->perpage() < $products->total()) ? $products->perpage(): $products->total())}} of {{ $products->total()}} result</p>
+                        @endif
                     </div>
                     <div class="shop-tab nav">
                         <a href="#shop-1" data-bs-toggle="tab">

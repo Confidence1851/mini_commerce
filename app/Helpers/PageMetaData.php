@@ -8,8 +8,8 @@ use App\Models\Post;
 class PageMetaData
 {
 
-    const DEFAULT_SUFFIX = "- Flairworlds";
-    const DEFAULT_KEYWORDS = "blog, crypto, entertaint";
+    const DEFAULT_SUFFIX = "- Gelly";
+    const DEFAULT_KEYWORDS = "E-commerce, Fashion, In-vogue";
 
     static public function getTitle(string $title)
     {
@@ -20,7 +20,7 @@ class PageMetaData
     {
         $meta = new MetaData();
         return $meta->setAttribute("title", self::getTitle("Home"))
-            ->setAttribute("description", "Welcome to flairworld.com")
+            ->setAttribute("description", "Welcome to Gelly.com")
             ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
             ->setAttribute("author", "Confidence")
             ->setAttribute("audience", "Public")

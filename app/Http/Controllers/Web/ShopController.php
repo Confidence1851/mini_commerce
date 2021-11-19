@@ -40,36 +40,36 @@ class ShopController extends Controller
         ],
         "created_at_latest" => [
             "label" => "Sort_by - Newness",
-            "column" => "created_atr",
-            "order" => "desc"
+            "column" => "created_at",
+            "order" => "desc",
         ],
     ];
     public function index(Request $request)
     {
 
-            $builder = Product::active();
-            $message = $request->message ?? "Result not found, try searching for another keyword";
+
+        $builder = Product::active();
+        $message = $request->message ?? "Result not found, try searching for another keyword";
 
 
-            if(!empty($key = $request->orderBy)){
-                $optionKeys = array_keys($this->orderByOptions);
-                if(in_array($key , $optionKeys)){
-                    $option = $this->orderByOptions[$key];
-                    $builder = $builder->orderBy($option["column"] , $option["order"] ?? $option["sort"]);
-                }
+        if (!empty($key = $request->orderBy)) {
+            $optionKeys = array_keys($this->orderByOptions);
+            if (in_array($key, $optionKeys)) {
+                $option = $this->orderByOptions[$key];
+                $builder = $builder->orderBy($option["column"], $option["order"], $option['sort']);
             }
+        }
 
-            if (!empty($key = $request->search)) {
-                $builder = $builder->where('name', 'LIKE', "%$key%");
-            }
+        if (!empty($key = $request->search)) {
+            $builder = $builder->where('name', 'LIKE', "%$key%");
+        }
 
-            $products = $builder->paginate(25);
-            return view("web.pages.shop.index", ["products" => $products,
-
+        $products = $builder->paginate(25);
+        return view("web.pages.shop.index", [
+            "products" => $products,
             'message' => $message,
             'orderByOptions' => $this->orderByOptions
         ]);
-
     }
 
     public function details($id)
