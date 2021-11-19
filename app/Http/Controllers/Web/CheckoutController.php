@@ -6,6 +6,7 @@ use App\Constants\PaymentConstants;
 use App\Exceptions\Shop\OrderException;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
+use App\Models\DeliveryAddress;
 use App\Services\Payment\CreateCardPaymentService;
 use App\Services\Payment\CreateManualPaymentService;
 use App\Services\Payment\PaymentService;
@@ -14,6 +15,7 @@ use App\Services\Shop\DeliveryAddressService;
 use App\Services\Shop\Order\OrderService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -34,13 +36,14 @@ class CheckoutController extends Controller
             "cart" => $cart,
             "cartItems" => $cartItems,
             "shipping_fee" => 0,
-            "user" => $user
+            "user" => $user,
+            "address" => DeliveryAddress::where("user_id" , $user->id)->latest()->firstorNew()
         ]);
     }
 
     public function process(Request $request)
     {
-
+        DB::beginTransaction();
         try {
             $request->validate([
                 "payment_method" => "required|string|" . Rule::in(PaymentConstants::PAYMENT_OPTIONS),
@@ -82,18 +85,26 @@ class CheckoutController extends Controller
                     "payment_ref" => PaymentService::newRefCode()
                 ]);
 
+                DB::commit();
+
                 return redirect()->route("web.shop.checkout.status", [
                     "reference" => $order->reference,
                     "status" => "success"
                 ]);
             }
         } catch (ValidationException $e) {
-            throw $e;
+                DB::rollBack();
+                throw $e;
         } catch (ValidationException $e) {
-            return redirect()->route("web.shop.checkout.status", [
+                DB::rollBack();
+                return redirect()->route("web.shop.checkout.status", [
                 "reference" => $order->reference,
                 "status" => "error",
             ]);
+        }
+        catch(Exception $e){
+            DB::rollBack();
+            return back()->withInput($request->all())->with("error_message" , "We couldnt process your request at this time. Please try agai later.")
         }
     }
 
