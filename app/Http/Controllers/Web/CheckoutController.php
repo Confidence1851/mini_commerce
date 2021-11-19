@@ -104,7 +104,7 @@ class CheckoutController extends Controller
         }
         catch(Exception $e){
             DB::rollBack();
-            return back()->withInput($request->all())->with("error_message" , "We couldnt process your request at this time. Please try agai later.");
+            return back()->withInput($request->all())->with("error_message" , "We couldnt process your request at this time. Please try again later.");
         }
     }
 
