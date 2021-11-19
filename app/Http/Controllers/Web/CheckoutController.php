@@ -24,6 +24,12 @@ class CheckoutController extends Controller
         $cart = CartService::getCartByUser(auth()->id());
         $cartItems = CartItem::where("cart_id", $cart->id)->whereHas("product")->with("product")->latest()->get();
         $user = auth()->user();
+
+        if(empty($user->payment_ref)){
+            $user->update([
+                "payment_ref" => PaymentService::newRefCode()
+            ]);
+        }
         return view("web.pages.shop.checkout", [
             "cart" => $cart,
             "cartItems" => $cartItems,
