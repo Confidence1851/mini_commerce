@@ -14,10 +14,10 @@
 
                     </div>
                     <div class="tab-content">
-                        @include("notifications.flash_messages")
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
+                                    @include("notifications.flash_messages")
                                     @if (session('status'))
                                     <div class="alert alert-success" role="alert">
                                         {{ session('status') }}
@@ -26,7 +26,7 @@
                                     <form action="{{ route('password.email') }}" method="POST">
                                         @csrf
                                         <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"></>
-                                     
+
                                         <div class="button-box">
                                             <button type="submit">Send Password-reset Link</button>
                                         </div>
