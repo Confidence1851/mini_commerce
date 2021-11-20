@@ -41,20 +41,4 @@ class IndexController extends Controller
     {
         return getFileFromPrivateStorage(readFileUrl("decrypt", $path));
     }
-
-    public function approved_vendors()
-    {
-        $vendors = Vendor::approved()->whereHas("user")
-            ->with("user")
-            ->whereHas("coupons" , function ($query)
-            {
-                $query->whereNull("used_on");
-            })
-            ->with("coupons")
-            ->orderby("created_at", "desc")
-            ->paginate(20);
-        $sn = $vendors->firstItem();
-        $plans = Plan::active()->where("price", ">", 0)->get(["name", "price"]);
-        return view("web.pages.approved_vendors", ["vendors" => $vendors, "sn" => $sn, "plans" => $plans]);
-    }
 }

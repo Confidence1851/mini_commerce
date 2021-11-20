@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Helpers\MetaData;
 use App\Models\Post;
+use App\Models\Product;
 
 class PageMetaData
 {
@@ -22,7 +23,7 @@ class PageMetaData
         return $meta->setAttribute("title", self::getTitle("Home"))
             ->setAttribute("description", "Welcome to Gelly.com")
             ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
-            ->setAttribute("author", "Confidence")
+            ->setAttribute("author", "")
             ->setAttribute("audience", "Public")
             ->generate();
     }
@@ -34,7 +35,7 @@ class PageMetaData
         return $meta->setAttribute("title", self::getTitle("Contact Us"))
             ->setAttribute("description", "Rapid contacts")
             ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
-            ->setAttribute("author", "Confidence")
+            ->setAttribute("author", "")
             ->setAttribute("audience", "Public")
             ->generate();
 
@@ -46,7 +47,7 @@ class PageMetaData
         return $meta->setAttribute("title", self::getTitle("About Us"))
             ->setAttribute("description", "About us")
             ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
-            ->setAttribute("author", "Confidence")
+            ->setAttribute("author", "")
             ->setAttribute("audience", "Public")
             ->generate();
 
@@ -91,4 +92,64 @@ class PageMetaData
             ->setAttribute("twitter_image_alt", $post->title)
             ->generate();
     }
+
+    static public function cartPage()
+    {
+        $meta = new MetaData();
+
+        return $meta->setAttribute("title", self::getTitle("My Cart"))
+            ->setAttribute("description", "Cart")
+            ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
+            ->setAttribute("author", "")
+            ->setAttribute("audience", "Public")
+            ->generate();
+
+    }
+
+    static public function checkoutPage()
+    {
+        $meta = new MetaData();
+
+        return $meta->setAttribute("title", self::getTitle("Checkout"))
+            ->setAttribute("description", "CHeckout")
+            ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
+            ->setAttribute("author", "")
+            ->setAttribute("audience", "Public")
+            ->generate();
+
+    }
+
+    static public function shopPage()
+    {
+        $meta = new MetaData();
+
+        return $meta->setAttribute("title", self::getTitle("Shop"))
+            ->setAttribute("description", "Shop for the best fasjion products")
+            ->setAttribute("keywords", self::DEFAULT_KEYWORDS)
+            ->setAttribute("author", "")
+            ->setAttribute("audience", "Public")
+            ->generate();
+
+    }
+
+    static public function productDetailsPage(Product $product)
+    {
+        $meta = new MetaData();
+        $title = $product->meta_title ?? $product->name ?? "";
+        $description =  $product->meta_description ?? $product->description ?? "";
+        return $meta->setAttribute("title", self::getTitle($title))
+            ->setAttribute("description", $description)
+            ->setAttribute("keywords",$product->meta_keywords ?? self::DEFAULT_KEYWORDS)
+            ->setAttribute("author", "Admin")
+            ->setAttribute("page_topic", $product->name)
+            ->setAttribute("og_site_name", $product->detailUrl())
+            ->setAttribute("og_title", $product->name)
+            ->setAttribute("og_description", $description)
+            ->setAttribute("og_image", $product->getDefaultImage())
+            ->setAttribute("og_url", $product->detailUrl())
+            ->setAttribute("twitter_card", $product->getDefaultImage())
+            ->setAttribute("twitter_image_alt", $product->name)
+            ->generate();
+    }
+
 }

@@ -1,4 +1,4 @@
-@extends('auth.layouts.app')
+@extends("web.layouts.app" , ["meta_title" => "Confirm Password"])
 
 @section('content')
     <div class="row justify-content-center">

@@ -37,7 +37,7 @@
 
 
 
-    <title>{{ $metaData['title'] ?? '' }}</title>
+    <title>{{ $metaData['title'] ?? $meta_title ??  env("APP_NAME") }}</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ $logo_icon_image }}">

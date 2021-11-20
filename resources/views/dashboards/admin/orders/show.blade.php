@@ -9,7 +9,7 @@
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                         <h4>Order Details
                             <span class="fr">
-                        <a type="button" class="btn btn-sm btn-danger">Cancel Order</a>
+                        {{-- <a type="button" class="btn btn-sm btn-danger">Cancel Order</a> --}}
                             </span>
                         </h4>
                     </div>
