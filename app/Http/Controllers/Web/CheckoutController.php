@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Constants\PaymentConstants;
 use App\Exceptions\Shop\OrderException;
+use App\Helpers\PageMetaData;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use App\Models\DeliveryAddress;
@@ -27,7 +28,7 @@ class CheckoutController extends Controller
         $cartItems = CartItem::where("cart_id", $cart->id)->whereHas("product")->with("product")->latest()->get();
         $user = auth()->user();
 
-        if(empty($user->payment_ref)){
+        if (empty($user->payment_ref)) {
             $user->update([
                 "payment_ref" => PaymentService::newRefCode()
             ]);
@@ -37,7 +38,8 @@ class CheckoutController extends Controller
             "cartItems" => $cartItems,
             "shipping_fee" => 0,
             "user" => $user,
-            "address" => DeliveryAddress::where("user_id" , $user->id)->latest()->firstorNew()
+            "address" => DeliveryAddress::where("user_id", $user->id)->latest()->firstorNew(),
+            "metaData" => PageMetaData::checkoutPage()
         ]);
     }
 
@@ -93,18 +95,17 @@ class CheckoutController extends Controller
                 ]);
             }
         } catch (ValidationException $e) {
-                DB::rollBack();
-                throw $e;
+            DB::rollBack();
+            throw $e;
         } catch (ValidationException $e) {
-                DB::rollBack();
-                return redirect()->route("web.shop.checkout.status", [
+            DB::rollBack();
+            return redirect()->route("web.shop.checkout.status", [
                 "reference" => $order->reference,
                 "status" => "error",
             ]);
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            return back()->withInput($request->all())->with("error_message" , "We couldnt process your request at this time. Please try again later.");
+            return back()->withInput($request->all())->with("error_message", "We couldnt process your request at this time. Please try again later.");
         }
     }
 
@@ -119,7 +120,11 @@ class CheckoutController extends Controller
             if ($status == "success") {
                 $message = "Your order with reference #$order->reference has been created successfully.";
             }
-            return view("web.pages.shop.checkout_status", ["status" => $status, "message" => $message]);
+            return view("web.pages.shop.checkout_status", [
+                "status" => $status,
+                "message" => $message,
+            "metaData" => PageMetaData::checkoutPage()
+        ]);
         } catch (OrderException $e) {
             return view("web.pages.shop.checkout_status", ["status" => "warning", "message" => $e->getMessage()]);
         } catch (Exception $e) {

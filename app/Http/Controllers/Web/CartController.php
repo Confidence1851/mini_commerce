@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Helpers\ApiConstants;
+use App\Helpers\PageMetaData;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use App\Services\Shop\CartItemService;
@@ -19,7 +20,10 @@ class CartController extends Controller
     {
         $cart = CartService::getCartByUser(auth()->id());
         $cartItems = CartItem::where("cart_id", $cart->id)->whereHas("product")->with("product")->latest()->get();
-        return view("web.pages.shop.cart", ["cart" => $cart , "cartItems" => $cartItems]);
+        return view("web.pages.shop.cart", [
+            "cart" => $cart, "cartItems" => $cartItems,
+            "metaData" => PageMetaData::cartPage()
+        ]);
     }
 
     public function save(Request $request, $id)
@@ -40,9 +44,9 @@ class CartController extends Controller
                 $user = auth()->user();
                 $in_cart = CartItemService::inCart($user->id, $id);
                 if (!empty($in_cart)) {
-                   $cart = CartService::removeFromCart($user->id, $id);
+                    $cart = CartService::removeFromCart($user->id, $id);
                 } else {
-                   $cart = CartService::addToCart($user->id, $id, $data);
+                    $cart = CartService::addToCart($user->id, $id, $data);
                 }
             }
             $in_cart = !empty(CartItemService::inCart($user->id, $id));
@@ -84,7 +88,7 @@ class CartController extends Controller
 
                 $in_cart->refresh();
 
-                return validResponse("Cart updated successfully" , [
+                return validResponse("Cart updated successfully", [
                     "cart" => $cart,
                     "cartItem" => [
                         "unit_price" => $in_cart->getPrice(),
@@ -93,8 +97,6 @@ class CartController extends Controller
                     ]
                 ]);
             }
-
-
         } catch (ValidationException $e) {
             $message = "The given data was invalid.";
             return inputErrorResponse($message, ApiConstants::VALIDATION_ERR_CODE, $request, $e);

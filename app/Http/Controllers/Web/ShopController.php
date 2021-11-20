@@ -6,6 +6,7 @@ use App\Constants\StatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Exceptions\Shop\ProductException;
+use App\Helpers\PageMetaData;
 use Exception;
 use App\Services\Shop\CartItemService;
 use Illuminate\Database\Console\Migrations\StatusCommand;
@@ -68,7 +69,8 @@ class ShopController extends Controller
         return view("web.pages.shop.index", [
             "products" => $products,
             'message' => $message,
-            'orderByOptions' => $this->orderByOptions
+            'orderByOptions' => $this->orderByOptions,
+            "metaData" => PageMetaData::shopPage()
         ]);
     }
 
@@ -92,7 +94,7 @@ class ShopController extends Controller
             "product" => $product,
             "related_products" => $related_product,
             "in_cart" => $in_cart, "quantity" => $quantity,
-
+            "metaData" => PageMetaData::productDetailsPage($product)
         ]);
     }
 }

@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="{{ url('/') }}" class="nav-link"> FLAIRWORLDS </a>
+                    <a href="{{ url('/') }}" class="nav-link"> {{ env("APP_NAME") }} </a>
                 </li>
             </ul>
 

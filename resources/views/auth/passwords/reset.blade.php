@@ -1,4 +1,4 @@
-@extends("web.layouts.app" , ["meta_title" => "Login"])
+@extends("web.layouts.app" , ["meta_title" => "Reset Password"])
 {{-- @section('title', 'Login') --}}
 @section('content')
 
