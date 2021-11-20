@@ -2,8 +2,8 @@
     <a class="mobile-aside-close"><i class="la la-close"></i></a>
     <div class="header-mobile-aside-wrap">
         <div class="mobile-search">
-            <form class="search-form" action="#">
-                <input type="text" placeholder="Search entire store…">
+            <form class="search-form" action="{{ route('web.shop.index')}}" method="GET">
+                <input type="text" value="{{ request()->query('builder')}}" name="search" placeholder="Search entire store…">
                 <button class="button-search"><i class="la la-search"></i></button>
             </form>
         </div>

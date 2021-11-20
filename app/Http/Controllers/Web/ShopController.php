@@ -22,6 +22,8 @@ class ShopController extends Controller
     //    StatusConstants::ACTIVE => 'In stock'
     // ];
 
+
+
     public $orderByOptions = [
         "created_at_asc" => [
             "label" => "A-Z",
