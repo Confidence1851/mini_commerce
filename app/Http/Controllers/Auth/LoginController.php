@@ -28,19 +28,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // public function redirectTo()
-    // {
-    //     $role = Auth::user()->role;
-    //     if ($role == "Admin") {
-    //         return '/admin/dashboard';
-    //     }else{
-    //         return "/home";
-    //     }
-    // }
+    public function redirectTo()
+    {
+        $role = Auth::user()->role;
+        if ($role == "Admin") {
+            return '/admin/dashboard';
+        }else{
+            return "/home";
+        }
+    }
 
-    
-
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
 
     /**
