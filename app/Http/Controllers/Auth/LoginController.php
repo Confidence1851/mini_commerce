@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    public function redirectTo()
+    protected function redirectTo()
     {
         $role = Auth::user()->role;
         if ($role == "Admin") {
