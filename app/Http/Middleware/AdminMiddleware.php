@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Helpers\Constants;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -17,11 +18,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $request->user();
-        if($user->role == Constants::ADMIN_USER){
-            return $next($request);
-        }
-        
-        return redirect()->route("user.dashboard");
-    }
+    if(Auth::user()->role == "Admin")
+        return $next($request);
+    return redirect('/admin/dashboard');
+}
 }

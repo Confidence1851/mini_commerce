@@ -29,22 +29,22 @@ class ShopController extends Controller
         "created_at_asc" => [
             "label" => "A-Z",
             "column" => "created_at",
-            "sort" => "asc"
+            "order" => "asc"
         ],
         "created_at_desc" => [
             "label" => "Z-A",
             "column" => "created_at",
             "order" => "desc"
         ],
-        "status_active" => [
+        "status_" => [
             "label" => "In stock",
-            "column" => "status" ?? 'Active',
+            "column" => "status" ,
             'order' => "asc"
         ],
         "created_at_latest" => [
             "label" => "Sort_by - Newness",
             "column" => "created_at",
-            "order" => "desc",
+            "order" => "asc"
         ],
     ];
     public function index(Request $request)
@@ -59,7 +59,7 @@ class ShopController extends Controller
             $optionKeys = array_keys($this->orderByOptions);
             if (in_array($key, $optionKeys)) {
                 $option = $this->orderByOptions[$key];
-                $builder = $builder->orderBy($option["column"], $option["order"], $option['sort']);
+                $builder = $builder->orderBy($option["column"], $option["order"]);
             }
         }
 

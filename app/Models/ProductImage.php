@@ -28,4 +28,6 @@ class ProductImage extends Model
             return readFileUrl("encrypt", $path);
         }
     }
+
+    // public function
 }

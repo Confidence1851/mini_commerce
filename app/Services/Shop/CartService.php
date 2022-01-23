@@ -4,6 +4,7 @@ namespace App\Services\Shop;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class CartService
@@ -39,6 +40,7 @@ class CartService
         DB::beginTransaction();
         $cart = self::getCartByUser($user_id);
         CartItemService::saveToCart($cart->id, $product_id, $data);
+       
         $cart = self::refreshCart($cart->id);
         DB::commit();
         return $cart;
@@ -50,6 +52,8 @@ class CartService
         $cart = self::getCartByUser($user_id);
         CartItemService::removeFromCart($cart->id, $product_id);
         $cart = self::refreshCart($cart->id);
+       
+        
         DB::commit();
         return $cart;
     }
@@ -72,6 +76,8 @@ class CartService
             "discount" => $sums["total_discount"] ?? 0,
             "total" => $sums["total"] ?? 0
         ];
+
+        
 
         $cart->update($data);
         return $cart->refresh();

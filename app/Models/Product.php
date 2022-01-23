@@ -83,9 +83,9 @@ class Product extends Model
         Product::where('created_at', 'asc', $orderByOptions)->latest();
     }
 
-    // public function scopeActive($query){
-
-    // }
+    public function scopeInactive($query){
+        $query->where("status" , StatusConstants::INACTIVE);
+    }
 }
 
 

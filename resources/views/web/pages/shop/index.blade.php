@@ -25,7 +25,7 @@
                             <form class="input-group" action="{{ url()->current() }}" method="GET">
                                 <select class="form-control" name="orderBy">
                                     <option value="" disabled selected>Select Type</option>
-                                    @foreach ($orderByOptions as $key => $options)
+                                    @foreach ($orderByOptions as $key => $options )
                                     <option value="{{$key}}" {{$key == request()->query('orderBy') ? "selected" : "" }}><a href="{{ url()->current() }}">{{ $options['label'] }}</a></option>
                                     @endforeach
                                 </select>
@@ -68,6 +68,7 @@
                                 $cart_item = cartitem(auth()->id() , $product->id);
                                 $in_cart = !empty($cart_item);
                                 }
+
                                 @endphp
                                 <div class="col-lg-6">
                                     <div class="shop-list-wrap mb-50">
@@ -96,6 +97,7 @@
                                                     </div>
                                                     <p>{{ $product->description}}</p>
                                                     <div class="shop-list-btn-wrap">
+                                                    @if ($product->status != "Inactive")
                                                         @auth
                                                         <div class="shop-list-cart default-btn btn-hover">
                                                             <a title="{{$in_cart ? "Remove From Cart" : "Add To Cart"}}" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.save" , $product->id )}}" class="btn-group cart_add_or_remove_btn">
@@ -115,8 +117,13 @@
                                                         <div class="shop-list-wishlist default-btn btn-hover">
                                                             <a href="{{ route("login")}}"><i class="la la-heart-o"></i></a>
                                                         </div>
-
                                                         @endauth
+                                                        @else
+                                                        <div class="text-danger">
+                                                           <b> Sold Out</b>
+                                                        </div>
+                                                        @endif
+
                                                     </div>
 
                                                 </div>

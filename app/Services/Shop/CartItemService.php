@@ -35,6 +35,8 @@ class CartItemService
                 "product_id" => $product_id
             ],
         )->first();
+
+        
     }
 
     public static function removeFromCart($cart_id, $product_id)

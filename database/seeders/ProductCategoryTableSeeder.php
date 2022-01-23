@@ -21,7 +21,8 @@ class ProductCategoryTableSeeder extends Seeder
                 ['name' => $category],
                 [
                 'name' => $category,
-                "status" => "Active"
+                "status" => "Active",
+                "image" => "/"
                 ]
             );
         }

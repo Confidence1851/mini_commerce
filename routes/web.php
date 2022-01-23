@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,7 @@ Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
 
 
 
-Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware(["auth", "admin"])->group(function () {
+Route::prefix("admin")->as("admin.")->namespace("Admin")->middleware("admin")->group(function () {
     Route::get('/dashboard', "DashboardController@dashboard")->name("dashboard");
     Route::resource('users', UserController::class);
     Route::get('users/imitate/{id}', "UserController@imitate")->name("users.imitate");

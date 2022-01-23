@@ -26,4 +26,18 @@ class AuthorizationService
             $sudo->syncRoles([$role]);
         }
     }
+
+    public static function hasRole(array $roles , User $user = null)
+    {
+        $user = $user ?? auth()->user();
+        if(!$user->hasRole($roles)){
+            abort(403);
+        }
+    }
+
+    public static function checkForRoles(array $roles , User $user = null): bool
+    {
+        $user = $user ?? auth()->user();
+        return $user->hasRole($roles);
+    }
 }

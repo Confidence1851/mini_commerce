@@ -41,6 +41,8 @@
                         <span>{{$product->getPrice()}} </span>
                         <span class="old">{{$product->getRealPrice()}}</span>
                     </div>
+
+
                     {{-- <div class="pro-details-rating-wrap">
                         <div class="pro-details-rating">
                             <i class="la la-star"></i>
@@ -89,6 +91,7 @@
                         <div class="cart-plus-minus">
                             <input value="{{$quantity}}" class="cart-plus-minus-box cart_update_data" id="cart_product_qty_{{$product->id}}" type="text" name="qtybutton" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.update" , $product->id )}}">
                         </div>
+                        @if ($product->status != "Inactive")
                         @auth
                         <div class="pro-details-cart btn-hover">
                             <a title="{{$in_cart ? "Remove From Cart" : "Add To Cart"}}" data-product_id="{{$product->id}}" data-url="{{route("web.shop.cart.save" , $product->id )}}" class="btn-group cart_add_or_remove_btn">
@@ -104,8 +107,12 @@
                         <div class="pro-details-wishlist">
                             @livewire("shop.wishlist-component" , ["product" => $product])
                         </div>
+                        @else
+                        <div class="text-danger mr-2">
+                            <b>Sold Out</b>
+                        </div>
+                        @endif
                     </div>
-
                     <div class="pro-details-meta">
                         <span>Categories :</span>
                         <ul>

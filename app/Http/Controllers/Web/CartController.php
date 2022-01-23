@@ -16,10 +16,13 @@ use Illuminate\Validation\ValidationException;
 class CartController extends Controller
 {
 
-    public function index()
+    public function index($proct_id)
     {
         $cart = CartService::getCartByUser(auth()->id());
         $cartItems = CartItem::where("cart_id", $cart->id)->whereHas("product")->with("product")->latest()->get();
+        if ($cartItems->product != "Active"){
+            return CartItemService::removeFromCart($cart->id, $cartItems->product());
+        }
         return view("web.pages.shop.cart", [
             "cart" => $cart, "cartItems" => $cartItems,
             "metaData" => PageMetaData::cartPage()

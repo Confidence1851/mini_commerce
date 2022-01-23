@@ -27,4 +27,8 @@ class ProductCategory extends Model
             return readFileUrl("encrypt", $path);
         }
     }
+
+    public function parent(){
+        return $this->belongsTo(AdCategory::class, "category_id");
+    }
 }

@@ -10,11 +10,14 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Services\Auth\AuthorizationService;
 
 class IndexController extends Controller
 {
+    
     public function index()
     {
+       
        $proucts = Product::limit(12)->inRandomOrder()->get();
 
         return view("web.pages.home.index", [
