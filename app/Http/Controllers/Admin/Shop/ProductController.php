@@ -128,7 +128,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        // foreach($product->images as $image){
+        //     $image->cleanDelete();
+        // }
+        $product->delete();
         return back()->with("success_message", "Product deleted successfully!");
     }
 

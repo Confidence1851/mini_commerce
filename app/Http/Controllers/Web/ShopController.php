@@ -51,7 +51,7 @@ class ShopController extends Controller
     {
 
 
-        $builder = Product::active();
+        $builder = Product::active()->whereHas("defaultImage")->with("defaultImage");
         $message = $request->message ?? "Result not found, try searching for another keyword";
 
 

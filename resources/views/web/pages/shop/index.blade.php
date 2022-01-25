@@ -119,9 +119,12 @@
                                                         </div>
                                                         @endauth
                                                         @else
-                                                        <div class="text-danger">
-                                                           <b> Sold Out</b>
+                                                        <div class="shop-list-cart default-btn btn-hover">
+                                                            <a title="Sold Out"  class="btn-group sold_btn ml-2">
+                                                                Sold out
+                                                            </a>
                                                         </div>
+
                                                         @endif
 
                                                     </div>

@@ -14,7 +14,9 @@
                         <select class="form-control" name="category_id">
                             <option value="" disabled selected>Select Option</option>
                             @foreach ($categories as $_category)
+                            @if($category->id != $_category->id)
                             <option value="{{ $_category->id }}" {{$category->category_id == $_category->id ? "selected" : ""}}>{{ $_category->name }}</option>
+                            @endif
                             @endforeach
                         </select>
                     </div>
@@ -24,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Cover Image</label>
-                        <input class="form-control" type="file" required name="image"/>
+                        <input class="form-control" type="file" name="image"/>
                     </div>
                     <div class="form-group">
                         <label for="">Status<span class="required">*</span></label>

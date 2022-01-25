@@ -47,8 +47,8 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            "category_id" => "nullable|exists:ad_categories,id",
-            "name" => "required|string",
+            "category_id" => "nullable|exists:product_categories,id",
+            "name" => "required|string|unique:product_categories,name",
             "status" => "required|string",
             "image" => "required|image",
         ]);
@@ -69,8 +69,7 @@ class ProductCategoryController extends Controller
      */
     public function show($id)
     {
-        $category = ProductCategory::with(["ads", "specifications", "parent", "cover"])
-            ->findOrFail($id);
+        $category = ProductCategory::findOrFail($id);
         $boolOptions = Constants::BOOL_OPTIONS;
         return view("dashboards.admin.product_categories.show", [
             "category" => $category,
@@ -99,11 +98,10 @@ class ProductCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
-            "category_id" => "nullable|exists:ad_categories,id",
-            "name" => "required|string",
-            "cover_image" => "nullable|image",
-            "is_trending" => "required|in:0,1",
-            "is_active" => "required|in:0,1"
+            "category_id" => "nullable|exists:product_categories,id",
+            "name" => "required|string|unique:product_categories,name",
+            "status" => "required|string",
+            "image" => "nullable|image",
         ]);
 
         $category = ProductCategory::findOrFail($id);
@@ -129,6 +127,7 @@ class ProductCategoryController extends Controller
     public function destroy($id)
     {
         $category = ProductCategory::findOrFail($id);
+        deleteFileFromPrivateStorage($category->image);
         $category->delete();
         return back()->with("success_message", "Category deleted successfully!");
     }
