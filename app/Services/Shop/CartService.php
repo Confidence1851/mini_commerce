@@ -40,7 +40,7 @@ class CartService
         DB::beginTransaction();
         $cart = self::getCartByUser($user_id);
         CartItemService::saveToCart($cart->id, $product_id, $data);
-       
+
         $cart = self::refreshCart($cart->id);
         DB::commit();
         return $cart;
@@ -52,8 +52,8 @@ class CartService
         $cart = self::getCartByUser($user_id);
         CartItemService::removeFromCart($cart->id, $product_id);
         $cart = self::refreshCart($cart->id);
-       
-        
+
+
         DB::commit();
         return $cart;
     }
@@ -61,8 +61,13 @@ class CartService
     public static function refreshCart($cart_id)
     {
         $cart = self::getById($cart_id);
+
+        CartItem::where("cart_id", $cart->id)->whereHas("product", function ($product) {
+            $product->inactive();
+        })->delete();
+
         $sums = CartItem::where("cart_id", $cart->id)
-        ->whereHas("product")
+            ->whereHas("product")
             ->select(
                 DB::raw("count(*) as count"),
                 DB::raw("SUM(price) as total_price"),
@@ -77,7 +82,7 @@ class CartService
             "total" => $sums["total"] ?? 0
         ];
 
-        
+
 
         $cart->update($data);
         return $cart->refresh();
