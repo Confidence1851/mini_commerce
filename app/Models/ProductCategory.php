@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class ProductCategory.
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductCategory extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,6 @@ class ProductCategory extends Model
     }
 
     public function parent(){
-        return $this->belongsTo(AdCategory::class, "category_id");
+        return $this->belongsTo(self::class, "category_id");
     }
 }

@@ -29,5 +29,13 @@ class ProductImage extends Model
         }
     }
 
+    public function cleanDelete()
+    {
+        if (!empty($path = $this->image)) {
+            deleteFileFromPrivateStorage($path);
+        }
+        $this->delete();
+    }
+
     // public function
 }

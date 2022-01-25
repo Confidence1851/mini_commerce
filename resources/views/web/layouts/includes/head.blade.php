@@ -114,6 +114,12 @@
             color: #e32222;
         }
 
+        .sold_btn {
+            color: white;
+            background: black;
+            padding: 24px;
+        }
+
     </style>
 
 </head>

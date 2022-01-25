@@ -82,7 +82,7 @@ class ProductImageController extends Controller
      */
     public function destroy($id)
     {
-        ProductImage::findOrFail($id)->delete();
+        ProductImage::findOrFail($id)->cleanDelete();
         return back()->with("success_message", "Image deleted successfully!");
     }
 }
