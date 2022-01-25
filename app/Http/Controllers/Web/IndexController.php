@@ -14,11 +14,13 @@ use App\Services\Auth\AuthorizationService;
 
 class IndexController extends Controller
 {
-    
+
     public function index()
     {
-       
-       $proucts = Product::limit(12)->inRandomOrder()->get();
+
+       $proucts = Product::whereHas("defaultImage")
+       ->with("defaultImage")
+       ->limit(12)->inRandomOrder()->get();
 
         return view("web.pages.home.index", [
             "products" => $proucts,
