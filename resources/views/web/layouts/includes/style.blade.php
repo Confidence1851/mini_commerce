@@ -1,5 +1,3 @@
-<link rel="shortcut icon" type="image/x-icon" href="{{ $web_assets }}/images/favicon.png">
-
 <!-- CSS
 	============================================ -->
 
