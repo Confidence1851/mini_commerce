@@ -24,13 +24,14 @@
                         <img class="zoompro" src="{{ $product->getDefaultImage() }}" data-zoom-image="{{ $product->getDefaultImage() }}" alt="" /> <span>-{{ $product->discountPercent() }}%</span>
                     </div>
                     <div id="gallery" class="mt-20 product-dec-slider">
+                        @if ($product->images->count() > 1)
+
                         @foreach ($product->images as $image)
                         <a data-image="{{ $image->url() }}" data-zoom-image="{{ $image->url() }}">
                             <img src="{{ $image->url() }}" alt="" class="img-fluid">
                         </a>
                         @endforeach
-
-                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -102,19 +103,23 @@
                                 </span>
                             </a>
                         </div>
+
                         @else
                         <a class="btn login_btn p-3" href="{{ route("login")}}" class="">Login</a>
                         @endauth
-                        <div class="pro-details-wishlist">
-                            @livewire("shop.wishlist-component" , ["product" => $product])
-                        </div>
+
                         @else
                         <div class="shop-list-cart default-btn btn-hover">
-                            <a title="Sold Out"  class="btn-group sold_btn ml-2">
+                            <a title="Sold Out" class="btn-group sold_btn ml-2">
                                 Sold out
                             </a>
                         </div>
                         @endif
+                        @auth
+                        <div class="pro-details-wishlist">
+                            @livewire("shop.wishlist-component" , ["product" => $product])
+                        </div>
+                        @endauth
                     </div>
                     <div class="pro-details-meta">
                         <span>Categories :</span>

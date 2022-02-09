@@ -29,7 +29,7 @@
                                     <option value="{{$key}}" {{$key == request()->query('orderBy') ? "selected" : "" }}><a href="{{ url()->current() }}">{{ $options['label'] }}</a></option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-outline-danger btn-sm ml-3">Filter</button>
+                                <button class="btn btn-outline-dark btn-sm ml-3">Filter</button>
                             </form>
                         </div>
                         @if($products->isempty())
@@ -38,14 +38,14 @@
                         <p>Showing {{($products->currentpage()-1)*$products->perpage()+1}} to {{ $products->currentpage()*(($products->perpage() < $products->total()) ? $products->perpage(): $products->total())}} of {{ $products->total()}} result</p>
                         @endif
                     </div>
-                    <div class="shop-tab nav">
+                    {{-- <div class="shop-tab nav">
                         <a href="#shop-1" data-bs-toggle="tab">
                             <i class="la la-th-large"></i>
                         </a>
                         <a class="active" href="#shop-2" data-bs-toggle="tab">
                             <i class="la la-reorder"></i>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="shop-bottom-area mt-35">
                     <div class="tab-content jump">

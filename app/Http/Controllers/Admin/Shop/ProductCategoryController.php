@@ -99,7 +99,7 @@ class ProductCategoryController extends Controller
     {
         $data = $request->validate([
             "category_id" => "nullable|exists:product_categories,id",
-            "name" => "required|string|unique:product_categories,name",
+            "name" => "required|string|unique:product_categories,name , $id",
             "status" => "required|string",
             "image" => "nullable|image",
         ]);

@@ -5,7 +5,7 @@
                 <div class="col-xl-2 col-lg-2">
                     <div class="logo">
                         <a href="{{ route("web.index")}}">
-                            <img src="{{$web_assets}}/images/logo/logo.png" alt="logo">
+                            <img src="{{$logo_image}}" width="110" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="col-6">
                     <div class="mobile-logo">
                         <a href="{{ url('/') }}">
-                            <img alt="" src="assets/images/logo/logo.png">
+                            <img src="{{$logo_image}}" width="110" alt="logo">
                         </a>
                     </div>
                 </div>

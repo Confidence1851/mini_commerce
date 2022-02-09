@@ -30,9 +30,9 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength("125");
         view()->composer('*',function($view){
             $view->with([
-                "logo_image" => my_asset("logo.png"),
+                "logo_image" => my_asset("logo.jpeg"),
                 "logo_text_image" => my_asset("logo_text.png"),
-                "logo_icon_image" => my_asset("logo_icon.png"),
+                "logo_icon_image" => my_asset("logo_icon.jpeg"),
                 'web_assets' => url('/').env('RESOURCE_PATH').'/web',
                 'admin_assets' => url('/').env('RESOURCE_PATH').'/admin',
             ]);
