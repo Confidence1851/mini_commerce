@@ -42,8 +42,6 @@ class OrderStatusService
             $activity_message .= " with message \"$message\" ";
         }
 
-
-
         OrderActivityService::recordActivity(
             $order->id,
             $actor->id,

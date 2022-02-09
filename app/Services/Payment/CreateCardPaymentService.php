@@ -36,6 +36,7 @@ class CreateCardPaymentService
                 "payer_email" => $user->email,
                 "reference" => $initialization["transaction"]->reference,
                 "transaction_id" => $initialization["transaction"]->id,
+                "currency" => "NGN",
                 "amount" => $amount,
                 "fee" => 0,
                 "method" => PaymentConstants::PAY_WITH_CARD,
