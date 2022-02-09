@@ -33,12 +33,14 @@ class CreateCardPaymentService
 
             $payment = Payment::create([
                 "user_id" => $user->id,
+                "payer_email" => $user->email,
                 "reference" => $initialization["transaction"]->reference,
                 "transaction_id" => $initialization["transaction"]->id,
                 "amount" => $amount,
                 "fee" => 0,
-                "method" => PaymentConstants::FUND_WALLET_WITH_CARD,
-                "gateway" => CurrencyConstants::FLUTTERWAVE
+                "method" => PaymentConstants::PAY_WITH_CARD,
+                "gateway" => CurrencyConstants::FLUTTERWAVE,
+                "activity" => PaymentConstants::CART_CHECKOUT
             ]);
 
             session([

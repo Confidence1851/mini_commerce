@@ -3,6 +3,7 @@
 namespace App\Services\Payment;
 
 use App\Constants\CurrencyConstants;
+use App\Constants\PaymentConstants;
 use App\Constants\StatusConstants;
 use App\Constants\TransactionActivityConstants;
 use App\Constants\TransactionConstants;
@@ -11,6 +12,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\Transaction;
 use App\Services\Finance\TransactionService;
+use App\Services\Finance\WalletService;
 use App\Services\PaymentGateways\FlutterwaveService;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -101,21 +103,73 @@ class PaymentService
         }
     }
 
-    public static function newRefCode()
+    public static function getByReference($reference): Payment
     {
+        $payment = Payment::where("reference", $reference)->first();
 
-        // Generate a random code
-        $code = strtoupper(getRandomToken(6));
-
-        // Check if the code exists in the user table
-        if (Payment::where("reference", $code)->count() > 0) {
-
-            // If it is in the database , call the function again
-            return self::newRefCode();
+        if (empty($payment)) {
+            throw new PaymentException("Payment not found");
         }
-
-        // Else return the generated code
-        return $code;
+        return $payment;
     }
 
+    public static function getById($id): Payment
+    {
+        $payment = Payment::where("id", $id)->first();
+
+        if (empty($payment)) {
+            throw new PaymentException("Payment not found");
+        }
+        return $payment;
+    }
+
+    public static function handlePaymentAction($reference)
+    {
+        $payment = self::getByReference($reference);
+        $user = $payment->user;
+        $amount = $payment->amount;
+
+        if ($payment->activity == PaymentConstants::CART_CHECKOUT) {
+
+            WalletService::debit(
+                WalletService::WALLET_CURRENT,
+                $user->id,
+                $amount
+            );
+            TransactionService::create([
+                "user_id" => $user->id,
+                "amount" => $amount,
+                "fee" => 0,
+                "description" => "Paid for cart items",
+                "activity" => TransactionActivityConstants::CART_CHECKOUT,
+                "batch_no" => null,
+                "type" => TransactionConstants::DEBIT,
+                "status" => StatusConstants::COMPLETED
+            ]);
+        }
+
+        $payment->update([
+            "status" => StatusConstants::COMPLETED
+        ]);
+
+        return $payment;
+    }
+
+    public static function create($data): Payment
+    {
+        // $data = self::validate($data);
+        $data["reference"] = self::generateReferenceNo();
+        $payment = Payment::create($data);
+        return $payment;
+    }
+
+    public static function generateReferenceNo()
+    {
+        $key = "PRF_" . getRandomToken(5, true);
+        $check = Payment::where("reference", $key)->count();
+        if ($check > 0) {
+            return self::generateReferenceNo();
+        }
+        return $key;
+    }
 }

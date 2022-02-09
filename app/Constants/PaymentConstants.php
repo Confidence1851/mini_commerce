@@ -13,8 +13,8 @@ class PaymentConstants
         self::PAY_WITH_BANK,
         self::PAY_WITH_CARD
     ];
-    
+
     const SUBSCRIBE_TO_MEMBERSHIP_PLAN = "SUBSCRIBE_TO_MEMBERSHIP_PLAN";
-    const SUBSCRIBE_TO_PROMO_PLAN = "SUBSCRIBE_TO_PROMO_PLAN";
+    const CART_CHECKOUT = "CART_CHECKOUT";
     const FUND_WALLET_WITH_CARD = "FUND_WALLET_WITH_CARD";
 }

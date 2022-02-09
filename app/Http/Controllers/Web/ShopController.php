@@ -43,6 +43,8 @@ class ShopController extends Controller
                 $in_cart = true;
             }
         }
+        $product->increment("total_views");
+
         return view("web.pages.shop.details", [
             "product" => $product,
             "related_products" => $related_product,

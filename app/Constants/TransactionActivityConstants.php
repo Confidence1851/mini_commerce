@@ -15,6 +15,7 @@ class TransactionActivityConstants
     const SHARE_ACTIVITY_BONUS = "SHARE_ACTIVITY_BONUS";
     const MODIFY_WALLET = "MODIFY_WALLET";
     const ELITE_SHARING_COMMISSION = "ELITE_SHARING_COMMISSION";
+    const CART_CHECKOUT = "CART_CHECKOUT";
 
     const OPTIONS = [
         self::FUND_WITH_FLUTTERWAVE => "Fund with Flutterwave",
