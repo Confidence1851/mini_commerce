@@ -27,17 +27,17 @@ class IndexController extends Controller
             "banners" => [
                 [
                     "image_url" => my_asset("web/images/banner/banner-1.png"),
-                    "link" => route("web.shop.index", ["category_id" => 1]),
+                    "link" => route("web.shop.index", ["category_id" => 6]),
                     "title" => "Fashionable <br>ladies Bag"
                 ],
                 [
                     "image_url" => my_asset("web/images/banner/banner-2.png"),
-                    "link" => route("web.shop.index", ["category_id" => 1]),
+                    "link" => route("web.shop.index", ["category_id" => 4]),
                     "title" => "Dj Fashion <br> Man Shoes"
                 ],
                 [
                     "image_url" => my_asset("web/images/banner/banner-3.png"),
-                    "link" => route("web.shop.index", ["category_id" => 1]),
+                    "link" => route("web.shop.index", ["category_id" => 7]),
                     "title" => "Super Kids <br> Ghost Hat"
                 ],
             ],
