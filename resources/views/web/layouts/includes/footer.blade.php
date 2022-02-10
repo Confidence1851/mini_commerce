@@ -5,8 +5,8 @@
                 <div class="col-md-6">
                     <div class="footer-widget mb-40">
                         <div class="footer-logo">
-                            <a href="#"><img alt="" src="{{$web_assets}}/images/logo/logo.png"></a>
-                            <p>Lorem ipsum dolor sit, consectetur elit, sed do adipisicing eiusmod tempor</p>
+                            <img src="{{$logo_image}}" width="110" alt="logo">
+                            <p>Your Fashion, our Passion</p>
                         </div>
                         <div class="footer-contact">
                             <div class="single-footer-contact">
@@ -14,15 +14,15 @@
                                     <i class="la la-phone"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p>+012 345 678 102</p>
+                                    <p><a href="tel:+234 (0) 706 324 0620">+234 (0) 706 324 0620</a></p>
                                 </div>
                             </div>
                             <div class="single-footer-contact">
                                 <div class="footer-contact-icon">
-                                    <i class="la la-globe"></i>
+                                    <i class="la la-envelope"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p><a href="#">urname@email.com</a></p>
+                                    <p><a href="mailto:Sales@gelly.ng">Sales@gelly.ng</a></p>
                                 </div>
                             </div>
                             <div class="single-footer-contact">
@@ -30,7 +30,7 @@
                                     <i class="la la-map-marker"></i>
                                 </div>
                                 <div class="footer-contact-content">
-                                    <p>Address goes here, Crossroad 123.</p>
+                                    <p>Gate 3, Zion Court Estate, Ikate, Lekki by Mercedes Company.</p>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                 <li><a href="{{ route("login")}}">Login</a></li>
                                 <li><a href="{{ route("register")}}">Register</a></li>
                                 <li><a href="{{ route("web.contact_us")}}">Help</a></li>
-                                <li><a href="#">FAQs</a></li>
+                                {{-- <li><a href="#">FAQs</a></li> --}}
                             </ul>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
     <div class="footer-bottom border-top-2 pt-20 pb-20">
         <div class="container">
             <div class="copyright text-center">
-                <p>Copyright <a href="#">Gelly</a> © 2021. All Right Reserved.</p>
+                <p>Copyright <a href="#">Gelly</a> © {{ today()->format("Y") }}. All Right Reserved.</p>
             </div>
         </div>
     </div>

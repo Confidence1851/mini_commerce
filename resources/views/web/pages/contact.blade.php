@@ -21,14 +21,14 @@
             <div class="col-lg-5 col-md-6">
                 <div class="contact-info-area">
                     <h2>Get In Touch</h2>
-                    <p>Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elituis. </p>
+                    <p>Your Fashion, our Passion</p>
                     <div class="contact-info-wrap">
                         <div class="single-contact-info">
                             <div class="contact-info-icon">
                                 <i class="la la-globe"></i>
                             </div>
                             <div class="contact-info-content">
-                                <p>Address goes here, street, Crossroad 123.</p>
+                                <p>Gate 3, Zion Court Estate, Ikate, Lekki by Mercedes Company.</p>
                             </div>
                         </div>
                         <div class="single-contact-info">
@@ -36,7 +36,7 @@
                                 <i class="la la-envelope"></i>
                             </div>
                             <div class="contact-info-content">
-                                <p><a href="#">info@example.com</a> / <a href="#">info@example.com</a></p>
+                                <p><a href="mailto:Sales@gelly.ng">Sales@gelly.ng</a></p>
                             </div>
                         </div>
                         <div class="single-contact-info">
@@ -44,7 +44,7 @@
                                 <i class="la la-phone"></i>
                             </div>
                             <div class="contact-info-content">
-                                <p>+1 35 776 859 000 / +1 35 776 859 011</p>
+                                <p><a href="tel:+234 (0) 706 324 0620">+234 (0) 706 324 0620</a></p>
                             </div>
                         </div>
                     </div>

@@ -36,7 +36,9 @@ class OrderItemsService
                 "extra" => $extra
             ]);
 
-            
+            $item->product()->increment("total_orders");
+
+
         }
 
     }

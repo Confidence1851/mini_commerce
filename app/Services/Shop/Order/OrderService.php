@@ -67,6 +67,7 @@ class OrderService
         OrderItemsService::create($order , $cartItems);
 
         $cart->cartItems()->delete();
+        CartService::refreshCart($cart->id);
 
         DB::commit();
         return $order;

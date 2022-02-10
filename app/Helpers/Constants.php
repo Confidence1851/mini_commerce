@@ -79,7 +79,7 @@ class Constants{
     //  Error Codes
     const ERROR_CODE = 1000101;
 
-    const DEV_EMAIL = "ugoloconfidence@gmail.com";
+    const DEV_EMAIL = "admin@gelly.ng";
 
     const FLUTTERWAVE = "Flutterwave";
 

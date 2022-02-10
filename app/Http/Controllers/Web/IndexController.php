@@ -18,12 +18,30 @@ class IndexController extends Controller
     public function index()
     {
 
-       $proucts = Product::whereHas("defaultImage")
-       ->with("defaultImage")
-       ->limit(12)->inRandomOrder()->get();
+        $proucts = Product::whereHas("defaultImage")
+            ->with("defaultImage")
+            ->limit(12)->inRandomOrder()->get();
 
         return view("web.pages.home.index", [
             "products" => $proucts,
+            "banners" => [
+                [
+                    "image_url" => my_asset("web/images/banner/banner-1.png"),
+                    "link" => route("web.shop.index", ["category_id" => 6]),
+                    "title" => "Fashionable <br>ladies Bag"
+                ],
+                [
+                    "image_url" => my_asset("web/images/banner/banner-2.png"),
+                    "link" => route("web.shop.index", ["category_id" => 4]),
+                    "title" => "Dj Fashion <br> Man Shoes"
+                ],
+                [
+                    "image_url" => my_asset("web/images/banner/banner-3.png"),
+                    "link" => route("web.shop.index", ["category_id" => 7]),
+                    "title" => "Super Kids <br> Ghost Hat"
+                ],
+            ],
+
             "metaData" => PageMetaData::indexPage()
         ]);
     }

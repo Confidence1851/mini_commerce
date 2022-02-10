@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\Payment\PaymentGatewayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,11 @@ Route::as("user.")->namespace("User")->middleware('auth')->group(function () {
     Route::match(["get", "post"], '/address', "AccountController@address")->name("address");
     Route::match(["get", "post"], '/account', "AccountController@account")->name("account");
     Route::match(["get", "post"], '/change-password', "AccountController@change_password")->name("change_password");
+
+    Route::prefix("payment")->as("payment.")->group(function () {
+        Route::get("gateway/{gateway}/callback", [PaymentGatewayController::class, 'handleCallback'])->name("callback");
+    });
+
 });
 
 

@@ -48,10 +48,10 @@ class TransactionService
         $data["reference"] = self::generateReferenceNo();
         $data["total"] = $data["amount"] + $data["fee"];
         $transaction = Transaction::create($data);
-        
-        if($notify){
-            Notification::sendNow($transaction->user , new TransactionNotification($transaction));
-        }
+
+        // if($notify){
+        //     Notification::sendNow($transaction->user , new TransactionNotification($transaction));
+        // }
         return $transaction;
     }
 

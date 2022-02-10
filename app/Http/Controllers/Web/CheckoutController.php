@@ -30,7 +30,7 @@ class CheckoutController extends Controller
 
         if (empty($user->payment_ref)) {
             $user->update([
-                "payment_ref" => PaymentService::newRefCode()
+                "payment_ref" => PaymentService::generateReferenceNo()
             ]);
         }
         return view("web.pages.shop.checkout", [
@@ -72,6 +72,7 @@ class CheckoutController extends Controller
                 $order->update([
                     "payment_id" => $process["payment"]->id
                 ]);
+                DB::commit();
                 return redirect()->away($process["initialization"]["link"]);
             }
 
@@ -84,7 +85,7 @@ class CheckoutController extends Controller
                     "payment_id" => $process->id
                 ]);
                 $user->update([
-                    "payment_ref" => PaymentService::newRefCode()
+                    "payment_ref" => PaymentService::generateReferenceNo()
                 ]);
 
                 DB::commit();
@@ -104,6 +105,7 @@ class CheckoutController extends Controller
                 "status" => "error",
             ]);
         } catch (Exception $e) {
+            throw $e;
             DB::rollBack();
             return back()->withInput($request->all())->with("error_message", "We couldnt process your request at this time. Please try again later.");
         }

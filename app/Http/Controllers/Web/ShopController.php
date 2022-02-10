@@ -2,76 +2,27 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Constants\StatusConstants;
+use App\Constants\ProductConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Exceptions\Shop\ProductException;
 use App\Helpers\PageMetaData;
-use Exception;
+use App\QueryBuilder\ShopQueryBuilder;
 use App\Services\Shop\CartItemService;
-use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Http\Request;
-use Symfony\Component\Console\Input\Input;
 
 class ShopController extends Controller
 {
 
-    // public $orderByOptions =[
-    //     'created_at_latest' => 'Sort by - Newness',
-    //     'asc' => 'A-Z',
-    //     'desc' => 'Z-A',
-    //    StatusConstants::ACTIVE => 'In stock'
-    // ];
-
-
-
-    public $orderByOptions = [
-        "created_at_asc" => [
-            "label" => "A-Z",
-            "column" => "created_at",
-            "order" => "asc"
-        ],
-        "created_at_desc" => [
-            "label" => "Z-A",
-            "column" => "created_at",
-            "order" => "desc"
-        ],
-        "status_" => [
-            "label" => "In stock",
-            "column" => "status" ,
-            'order' => "asc"
-        ],
-        "created_at_latest" => [
-            "label" => "Sort_by - Newness",
-            "column" => "created_at",
-            "order" => "asc"
-        ],
-    ];
     public function index(Request $request)
     {
 
 
-        $builder = Product::active()->whereHas("defaultImage")->with("defaultImage");
         $message = $request->message ?? "Result not found, try searching for another keyword";
-
-
-        if (!empty($key = $request->orderBy)) {
-            $optionKeys = array_keys($this->orderByOptions);
-            if (in_array($key, $optionKeys)) {
-                $option = $this->orderByOptions[$key];
-                $builder = $builder->orderBy($option["column"], $option["order"]);
-            }
-        }
-
-        if (!empty($key = $request->search)) {
-            $builder = $builder->where('name', 'LIKE', "%$key%");
-        }
-
-        $products = $builder->paginate(25);
+        $products = ShopQueryBuilder::filterIndex($request->all())->paginate(25);
         return view("web.pages.shop.index", [
             "products" => $products,
             'message' => $message,
-            'orderByOptions' => $this->orderByOptions,
+            'orderByOptions' => ProductConstants::SHOP_ORDER_OPTIONS,
             "metaData" => PageMetaData::shopPage()
         ]);
     }
@@ -92,6 +43,8 @@ class ShopController extends Controller
                 $in_cart = true;
             }
         }
+        $product->increment("total_views");
+
         return view("web.pages.shop.details", [
             "product" => $product,
             "related_products" => $related_product,

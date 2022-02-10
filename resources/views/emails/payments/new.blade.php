@@ -7,7 +7,7 @@ A new payment has been made. Kindly find the details below:
     <b>User: </b> <span class="text-danger">{{ $user->names() }}</span>
 </p>
 <p>
-    <b>Dollar Equivalent: </b> <span class="text-success">NGN {{ $amount }}</span>
+    <b>Amount: </b> <span class="text-success">NGN {{ $amount }}</span>
 </p>
 <p>
     <b>Description: </b> <span class="text-success">{{ $description }}</span>

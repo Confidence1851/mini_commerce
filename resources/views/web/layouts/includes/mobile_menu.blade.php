@@ -19,8 +19,8 @@
 
         <div class="quick-info">
             <ul>
-                <li><i class="la la-phone"></i> +012 456 789</li>
-                <li> <i class="la la-envelope"></i> <a href="#">INFO@EXAMPLE.COM</a></li>
+                <li><i class="la la-phone"></i> <a href="tel:+234 (0) 706 324 0620">+234 (0) 706 324 0620</a></li>
+                <li> <i class="la la-envelope"></i> <a href="mailto:Sales@gelly.ng">Sales@gelly.ng</a></li>
                 <li> <i class="la la-clock-o"></i> MON-SAT:8AM TO 9PM</li>
             </ul>
         </div>

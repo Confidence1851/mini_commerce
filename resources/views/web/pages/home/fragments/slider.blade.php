@@ -8,7 +8,7 @@
                             <h3 class="animated">Sale 30%</h3>
                             <h1 class="animated">New & unique <br>Products</h1>
                             <div class="slider-btn default-btn btn-hover">
-                                <a class="animated btn-size-md btn-bg-black btn-color" href="shop.html">Shopping Now</a>
+                                <a class="animated btn-size-md btn-bg-black btn-color" href="{{ route("web.shop.index")}}">Shopping Now</a>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                             <h3 class="animated">Sale 30%</h3>
                             <h1 class="animated">New & unique <br>Products</h1>
                             <div class="slider-btn default-btn btn-hover">
-                                <a class="animated btn-size-md btn-bg-black btn-color" href="shop.html">Shopping Now</a>
+                                <a class="animated btn-size-md btn-bg-black btn-color" href="{{ route("web.shop.index")}}">Shopping Now</a>
                             </div>
                         </div>
                     </div>
