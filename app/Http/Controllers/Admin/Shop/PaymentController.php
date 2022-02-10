@@ -15,15 +15,21 @@ class PaymentController extends Controller
      */
     public function index(Request $request)
     {
+        $message = $request->message ?? "No payment found";
         $builder = Payment::with("user");
 
         if(!empty($key = $request->user_id)){
             $builder = $builder->where("user_id" , $key);
         }
 
+        if(!empty($key = $request->search)){
+            $builder = $builder->search($key);
+        }
+
         $payments = $builder->latest()->paginate();
         return view("dashboards.admin.payments.index" , [
-            "payments" => $payments
+            "payments" => $payments,
+            "message" => $message
         ]);
     }
 

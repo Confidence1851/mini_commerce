@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = ["id"];
 
@@ -59,35 +59,37 @@ class Product extends Model
 
     public function detailUrl()
     {
-        return route("web.shop.details" , ["id" => $this->id, "slug" => slugify($this->name)]);
+        return route("web.shop.details", ["id" => $this->id, "slug" => slugify($this->name)]);
     }
 
     public function discountPercent()
     {
-        if($this->discount == 0){
+        if ($this->discount == 0) {
             return 0;
         }
         return number_format($this->discount * 100 / $this->price);
     }
 
-    public function scopeSearch($query , $value){
+    public function scopeSearch($query, $value)
+    {
         $query->whereRaw("CONCAT(name,' ', reference) LIKE ?", ["%$value%"])
-        ->orWhere("name" , "like" , "%$value%");
+            ->orWhere("name", "like", "%$value%");
     }
 
-    public function scopeActive($query){
-        $query->where("status" , StatusConstants::ACTIVE )
-        ->orwhere("status", StatusConstants::INACTIVE);
+    public function scopeActive($query)
+    {
+        $query->where("status", StatusConstants::ACTIVE)
+            ->orwhere("status", StatusConstants::INACTIVE);
     }
 
-    public function scopeOrder( $orderByOptions){
+    public function scopeOrder($orderByOptions)
+    {
         Product::where('created_at', 'asc', $orderByOptions)->latest();
     }
 
-    public function scopeInactive($query){
-        $query->where("status" , StatusConstants::INACTIVE);
+    public function scopeInactive($query)
+    {
+        $query->where("status", StatusConstants::INACTIVE);
     }
+   
 }
-
-
-

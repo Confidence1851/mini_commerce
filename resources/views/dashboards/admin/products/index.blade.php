@@ -13,6 +13,19 @@
             </div>
         </div>
     </div>
+    <a class="btn pt-0 pl-0 d-inline-block d-md-none" data-toggle="collapse" href="#displayOptions" role="button" aria-expanded="true" aria-controls="displayOptions">Display Options <i class="simple-icon-arrow-down align-middle"></i></a>
+    <div class="collapse d-md-block ml-4" id="displayOptions">
+        <div class="d-block d-md-inline-block">
+            <div class="btn-group float-md-left mr-1 mb-1">
+                <div class=" d-inline-block float-md-left mr-1 mb-1 align-top">
+                    <form class="input-group" action="{{ url()->current() }}" method="GET">
+                        <input class="form-control" type="text" name="search" value="{{ request()->query('search')}}" placeholder="Search products...">
+                        <button class="btn btn-outline-primary btn-sm ml-3">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="widget-content widget-content-area">
         <div class="table-responsive">
             <table class="table table-bproducted table-hover table-striped table-checkable table-highlight-head mb-4">

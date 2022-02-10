@@ -16,15 +16,24 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
+        $order = Order::get();
         $builder = Order::with(["user", "payment"]);
+        $message = $request->message ?? "Order not found";
+
+        if(!empty($key = $request->search)){
+            $builder = $builder->search($key);
+        }
 
         if(!empty($key = $request->user_id)){
             $builder = $builder->where("user_id" , $key);
         }
 
+
+
         $orders = $builder->latest()->paginate();
         return view("dashboards.admin.orders.index", [
-            "orders" => $orders
+            "orders" => $orders,
+            "message" => $message
         ]);
     }
 

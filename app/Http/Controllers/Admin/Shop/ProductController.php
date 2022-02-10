@@ -18,9 +18,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with(["defaultImage", "category"])->latest()->paginate();
+        $builder = Product::with(["defaultImage", "category"]);
+        if($key = $request->search){
+            $builder = $builder->search($key);
+        }
+
+        $products = $builder->latest()->paginate();
         $sn = $products->firstItem();
         return view("dashboards.admin.products.index", [
             "products" => $products,

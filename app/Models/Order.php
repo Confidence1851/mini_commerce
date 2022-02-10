@@ -43,9 +43,9 @@ class Order extends Model
         return $this->belongsTo(DeliveryAddress::class , "delivery_address_id");
     }
 
-    public function scopeSearch($query)
+    public function scopeSearch($query, $value)
     {
-        $query->where("reference", );
+        $query->whereRaw("CONCAT(user_id,' ', reference) LIKE ?", ["%$value%"]);
     }
 
 }

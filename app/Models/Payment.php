@@ -9,19 +9,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model
 {
-    use HasFactory , SoftDeletes , Loggable;
+    use HasFactory, SoftDeletes, Loggable;
 
     protected $guarded = [];
 
-    public function getStatus(){
+    public function getStatus()
+    {
         return $this->getModelStatus($this->status);
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function admin(){
-        return $this->belongsTo(User::class , "admin_id");
+    public function admin()
+    {
+        return $this->belongsTo(User::class, "admin_id");
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        $query->whereRaw("CONCAT(user_id,' ', reference) LIKE ?", ["%$value%"]);
     }
 }
