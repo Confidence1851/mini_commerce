@@ -43,5 +43,9 @@ class Order extends Model
         return $this->belongsTo(DeliveryAddress::class , "delivery_address_id");
     }
 
+    public function scopeSearch($query)
+    {
+        $query->where("reference", );
+    }
 
 }
