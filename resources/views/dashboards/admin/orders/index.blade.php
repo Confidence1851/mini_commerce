@@ -37,7 +37,7 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                @if($orders->isNotEmpty())
+                    @if($orders->isNotEmpty())
                     @foreach ($orders as $order)
                     <tr>
                         <td>
@@ -50,7 +50,12 @@
                         <td>{{ $order->items()->count() }}</td>
                         <td>{{ format_money($order->amount , 2 , optional($order->payment)->currency) }}</td>
                         <td>{{ format_money($order->discount , 2 , optional($order->payment)->currency) }}</td>
-                        <td>{{ $order->status }}</td>
+                        <td>
+                            <span class="badge badge-pill badge-{{pillClasses($order->status)}} mb-1">
+                                {{ $order->status }}
+                            </span>
+                        </td>
+
                         <td>{{ date('Y-m-d', strtotime($order->created_at)) }}</td>
                         <td>
                             <a href="{{ route("admin.orders.show" , $order->id)}}">

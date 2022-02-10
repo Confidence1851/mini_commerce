@@ -144,7 +144,11 @@
                                         {{ $order->reference }}
                                     </a></td>
                                 <td>{{ format_money($order->amount) }}</td>
-                                <td>{{ $order->status }}</td>
+                                <td>
+                                    <span class="badge badge-pill badge-{{pillClasses($order->status)}} mb-1">
+                                        {{ $order->status }}
+                                    </span>
+                                </td>
                                 <td>{{ $order->created_at }}</td>
                             </tr>
                             @endforeach

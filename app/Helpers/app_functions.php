@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Constants\AppConstants;
 use Illuminate\Support\Facades\Response;
 
 use function PHPUnit\Framework\directoryExists;
@@ -105,6 +106,11 @@ function deleteFileFromStorage($path)
     if(file_exists($path)){
         unlink(public_path($path));
     }
+}
+
+function pillClasses($value)
+{
+    return AppConstants::PILL_CLASSES[$value] ?? "primary";
 }
 
 
