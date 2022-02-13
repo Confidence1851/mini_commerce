@@ -48,7 +48,7 @@ class CreateManualPaymentService
 
             // DB::commit();
 
-            dd(env("MAIL_FROM_ADDRESS"));
+            dump(env("MAIL_FROM_ADDRESS"));
 
 
             AppMailerService::send([
