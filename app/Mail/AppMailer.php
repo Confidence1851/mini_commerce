@@ -54,7 +54,7 @@ class AppMailer extends Mailable
      */
     public function build()
     {
-        $config = $this->from(env("MAIL_FROM_ADDRESS"), env("MAIL_FROM_NAME"))
+        $config = $this->from($this->from_email, $this->from_name)
             ->cc($this->cc_emails)
             ->bcc($this->bcc_emails)
             ->with('data', $this->data)
