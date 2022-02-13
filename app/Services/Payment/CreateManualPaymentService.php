@@ -46,7 +46,10 @@ class CreateManualPaymentService
                 "status" => StatusConstants::PENDING
             ]);
 
-            DB::commit();
+            // DB::commit();
+
+            dump(env("MAIL_FROM_ADDRESS"));
+
 
             AppMailerService::send([
                 "data" => [
@@ -54,7 +57,7 @@ class CreateManualPaymentService
                     "amount" => $amount,
                     "description" => $description
                 ],
-                "to" => env("MAIL_FROM_ADDRESS",  "noreply@gelly.ng"),
+                "to" => "ugoloconfidence@gmail.com",
                 "template" => "emails.payments.new",
                 "subject" => "New Payment Notification",
             ]);
