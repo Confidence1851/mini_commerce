@@ -140,7 +140,7 @@
                                         <label for="payment_method_1"> Direct Bank Transfer </label>
                                         <div class="payment-box payment_method_bacs">
                                             <p>Make your payment directly into our bank account. Please use your <b>{{$user->payment_ref}}</b> as the payment reference.</p>
-                                            <p>Bank Name: <b>Access Bank</b></p>
+                                            <p>Bank Name: <b>Access Diamond</b></p>
                                             <p>Account Name: <b>Ogechi Grace Chima</b></p>
                                             <p>Account Number: <b>0015135805</b></p>
                                             <p>Payment Reference: <b class="text-danger">{{$user->payment_ref}}</b></p>

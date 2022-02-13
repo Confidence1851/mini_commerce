@@ -54,7 +54,7 @@ class CreateManualPaymentService
                     "amount" => $amount,
                     "description" => $description
                 ],
-                "to" => env("MAIL_FROM_ADDRESS",  "flairbo@gmail.com"),
+                "to" => env("MAIL_FROM_ADDRESS",  "noreply@gelly.ng"),
                 "template" => "emails.payments.new",
                 "subject" => "New Payment Notification",
             ]);
