@@ -46,10 +46,7 @@ class CreateManualPaymentService
                 "status" => StatusConstants::PENDING
             ]);
 
-            // DB::commit();
-
-            dump(env("MAIL_FROM_ADDRESS"));
-
+            DB::commit();
 
             AppMailerService::send([
                 "data" => [
