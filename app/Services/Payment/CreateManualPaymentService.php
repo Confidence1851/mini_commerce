@@ -54,7 +54,7 @@ class CreateManualPaymentService
                     "amount" => $amount,
                     "description" => $description
                 ],
-                "to" => "ugoloconfidence@gmail.com",
+                "to" => "sales@gelly.ng",
                 "template" => "emails.payments.new",
                 "subject" => "New Payment Notification",
             ]);
