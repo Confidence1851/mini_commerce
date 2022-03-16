@@ -88,7 +88,7 @@ class RegisterController extends Controller
                 'status' => "Active",
                 "role" => "User",
                 "ref_code" => User::newRefCode(),
-                "payment_ref" => PaymentService::newRefCode(),
+                "payment_ref" => PaymentService::generateReferenceNo(),
                 "email_verified_at" => now(),
                 'password' => Hash::make($data['password']),
             ]);
@@ -100,6 +100,7 @@ class RegisterController extends Controller
             if($th->getCode() == Constants::ERROR_CODE){
                 throw $th;
             }
+            logger($th->getMessage(), [$th->getTrace()]);
             throw new Exception("An error occured while processing your request!");
         }
     }
@@ -118,8 +119,10 @@ class RegisterController extends Controller
                         ->withInput();
             }
 
+            $data = $validator->validated();
 
-            event(new Registered($user = $this->create($request->all())));
+
+            event(new Registered($user = $this->create($data)));
 
             $this->guard()->login($user);
 
@@ -131,7 +134,7 @@ class RegisterController extends Controller
         } catch (\Throwable $th) {
             return back()
             ->withErrors($validator)
-            ->withInput()
+            ->withInput($data)
             ->with("error_message", $th->getMessage());
         }
     }
