@@ -131,7 +131,7 @@
                                 <td>{{ $key+1}}</td>
                                 <td><img src="{{ optional($item->product)->getDefaultImage() }}" alt="{{$item->product->name}}" width="100"></td>
                                 <td>
-                                    <a href="{{ route("admin.products.show" , $order->user_id) }}" class="text-primary">
+                                    <a href="{{ route("admin.products.show" , $item->product_id) }}" class="text-primary">
                                         {{ $item->product_name }}
                                     </a>
                                 </td>
